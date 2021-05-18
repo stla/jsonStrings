@@ -5,27 +5,15 @@
 
 using namespace Rcpp;
 
-// jsonArrayAt
-std::string jsonArrayAt(std::string jsonString, int i);
-RcppExport SEXP _jsonStrings_jsonArrayAt(SEXP jsonStringSEXP, SEXP iSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type jsonString(jsonStringSEXP);
-    Rcpp::traits::input_parameter< int >::type i(iSEXP);
-    rcpp_result_gen = Rcpp::wrap(jsonArrayAt(jsonString, i));
-    return rcpp_result_gen;
-END_RCPP
-}
-// jsonObjectAt
-std::string jsonObjectAt(std::string jsonString, std::string key);
-RcppExport SEXP _jsonStrings_jsonObjectAt(SEXP jsonStringSEXP, SEXP keySEXP) {
+// cpp_jsonHasKey
+bool cpp_jsonHasKey(std::string jsonString, std::string key);
+RcppExport SEXP _jsonStrings_cpp_jsonHasKey(SEXP jsonStringSEXP, SEXP keySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type jsonString(jsonStringSEXP);
     Rcpp::traits::input_parameter< std::string >::type key(keySEXP);
-    rcpp_result_gen = Rcpp::wrap(jsonObjectAt(jsonString, key));
+    rcpp_result_gen = Rcpp::wrap(cpp_jsonHasKey(jsonString, key));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -45,8 +33,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_jsonStrings_jsonArrayAt", (DL_FUNC) &_jsonStrings_jsonArrayAt, 2},
-    {"_jsonStrings_jsonObjectAt", (DL_FUNC) &_jsonStrings_jsonObjectAt, 2},
+    {"_jsonStrings_cpp_jsonHasKey", (DL_FUNC) &_jsonStrings_cpp_jsonHasKey, 2},
     {"_jsonStrings_cpp_jsonAt", (DL_FUNC) &_jsonStrings_cpp_jsonAt, 4},
     {NULL, NULL, 0}
 };

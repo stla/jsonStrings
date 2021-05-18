@@ -41,3 +41,20 @@ jsonAt <- function(jsonString, path){
   }
   cpp_jsonAt(jsonString, keys = keys, indices = indices, isIndex = isIndex)
 }
+
+
+#' @title Does key exist?
+#' @description Checks whether a key is present in a JSON string.
+#'
+#' @param jsonString a JSON string
+#' @param key character string
+#'
+#' @return \code{TRUE} if the given key is present in the JSON string, 
+#'   \code{FALSE} otherwise.
+#' @export
+#'
+#' @examples jsonHasKey("{\"a\":[1,2,3],\"b\":\"hello\"}", "b")
+#' jsonHasKey("[1,2,3]", "a")
+jsonHasKey <- function(jsonString, key){
+  cpp_jsonHasKey(jsonString, key)
+}

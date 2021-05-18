@@ -4,17 +4,12 @@
 using json = nlohmann::json;
 
 // [[Rcpp::export]]
-std::string jsonArrayAt(std::string jsonString, int i){
+bool cpp_jsonHasKey(std::string jsonString, std::string key){
+  if(!json::accept(jsonString)){
+    Rcpp::stop("Invalid JSON string");
+  }
   json js = json::parse(jsonString);
-  json elem = js.at(i);
-  return elem.dump();
-}
-
-// [[Rcpp::export]]
-std::string jsonObjectAt(std::string jsonString, std::string key){
-  json js = json::parse(jsonString);
-  json elem = js[key];
-  return elem.dump();
+  return js.contains(key);
 }
 
 // [[Rcpp::export]]
