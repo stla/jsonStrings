@@ -9,3 +9,7 @@ cpp_jsonAt <- function(jsonString, keys, indices, isIndex) {
     .Call(`_jsonStrings_cpp_jsonAt`, jsonString, keys, indices, isIndex)
 }
 
+cpp_jsonAddProperty <- function(jsonString, key, value) {
+    .Call(`_jsonStrings_cpp_jsonAddProperty`, jsonString, key, value)
+}
+

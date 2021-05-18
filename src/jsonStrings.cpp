@@ -41,3 +41,27 @@ std::string cpp_jsonAt(
   }
   return js.dump();
 }
+
+// [[Rcpp::export]]
+std::string cpp_jsonAddProperty(
+    std::string jsonString, 
+    std::string key,
+    std::string value){
+  if(!json::accept(jsonString)){
+    Rcpp::stop("Invalid JSON string.");
+  }
+  if(!json::accept(value)){
+    Rcpp::stop("Invalid JSON string (new value).");
+  }
+  json js = json::parse(jsonString);
+  json jsvalue = json::parse(value);
+  if(!js.is_object()){
+    Rcpp::stop("Not an object.");  
+  }
+  if(js.contains(key)){
+    Rcpp::stop("New key already present.");  
+  };
+  js.emplace(key, jsvalue);
+  return js.dump();
+}
+

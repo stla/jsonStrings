@@ -58,3 +58,19 @@ jsonAt <- function(jsonString, path){
 jsonHasKey <- function(jsonString, key){
   cpp_jsonHasKey(jsonString, key)
 }
+
+
+#' @title Add new property
+#' @description Add a new property to a JSON string.
+#'
+#' @param jsonString JSON string representing an object
+#' @param key character string, the key of the new property
+#' @param value JSON string, value of the new property
+#'
+#' @return A JSON string.
+#' @export
+#'
+#' @examples jsonAddProperty("{\"a\":[1,2,3],\"b\":\"hello\"}", "c", "[1,2]")
+jsonAddProperty <- function(jsonString, key, value){
+  cpp_jsonAddProperty(jsonString, key, value)
+}

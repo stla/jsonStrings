@@ -31,10 +31,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_jsonAddProperty
+std::string cpp_jsonAddProperty(std::string jsonString, std::string key, std::string value);
+RcppExport SEXP _jsonStrings_cpp_jsonAddProperty(SEXP jsonStringSEXP, SEXP keySEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type jsonString(jsonStringSEXP);
+    Rcpp::traits::input_parameter< std::string >::type key(keySEXP);
+    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_jsonAddProperty(jsonString, key, value));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_jsonStrings_cpp_jsonHasKey", (DL_FUNC) &_jsonStrings_cpp_jsonHasKey, 2},
     {"_jsonStrings_cpp_jsonAt", (DL_FUNC) &_jsonStrings_cpp_jsonAt, 4},
+    {"_jsonStrings_cpp_jsonAddProperty", (DL_FUNC) &_jsonStrings_cpp_jsonAddProperty, 3},
     {NULL, NULL, 0}
 };
 
