@@ -1,5 +1,6 @@
 #' @useDynLib jsonStrings, .registration=TRUE
 #' @importFrom Rcpp evalCpp 
+#' @importFrom methods new
 NULL
 
 Rcpp::loadModule("jsonModule", what = "JSON")
