@@ -1,12 +1,28 @@
 #' @useDynLib jsonStrings, .registration=TRUE
-#' @importFrom Rcpp evalCpp
+#' @importFrom Rcpp evalCpp Module
 NULL
+
+
+#' @title JSON string
+#' @description Create a JSON string.
+#'
+#' @param string a character string
+#'
+#' @return A JSON string.
+#' @export
+#'
+#' @examples jsonString("[1,[\"a\",99],{\"x\":[2,3,4],\"y\":42}]")
+jsonString <- function(string){
+  jsonModule <- Module("jsonModule", "jsonStrings")
+  json <- jsonModule$JSON
+  new(json, string)$jsonPointer()
+}
 
 #' @title Access an element in a JSON string
 #' @description Extract an element in a JSON string by giving a path of keys or 
 #'   indices.
 #'
-#' @param jsonString a JSON string representing an array or an object
+#' @param jsonstring a JSON string representing an array or an object
 #' @param path path to the element to extract; either a character vector of 
 #'   keys, an integer vector of indices, or a list made of keys and indices
 #'
@@ -17,7 +33,10 @@ NULL
 #' jsonAt(jstring, 1)
 #' jsonAt(jstring, list(2, "x"))
 #' jsonAt(jstring, list(2, "z"))
-jsonAt <- function(jsonString, path){
+jsonAt <- function(jsonstring, path){
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
   if(is.list(path)){
     if(!checkPath(path)){
       stop("Invalid path.", call. = TRUE)
@@ -39,14 +58,16 @@ jsonAt <- function(jsonString, path){
   if(any(indices < 0L, na.rm = TRUE)){
     stop("Negative indices found in path.", call. = TRUE)
   }
-  cpp_jsonAt(jsonString, keys = keys, indices = indices, isIndex = isIndex)
+  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  jsonptr <- jsonptrModule$JSONPTR
+  new(jsonptr, jsonstring)$at(keys = keys, indices = indices, isIndex = isIndex)
 }
 
 
 #' @title Does key exist?
 #' @description Checks whether a key is present in a JSON string.
 #'
-#' @param jsonString a JSON string
+#' @param jsonstring a JSON string
 #' @param key character string
 #'
 #' @return \code{TRUE} if the given key is present in the JSON string, 
@@ -55,7 +76,10 @@ jsonAt <- function(jsonString, path){
 #'
 #' @examples jsonHasKey("{\"a\":[1,2,3],\"b\":\"hello\"}", "b")
 #' jsonHasKey("[1,2,3]", "a")
-jsonHasKey <- function(jsonString, key){
+jsonHasKey <- function(jsonstring, key){
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
   cpp_jsonHasKey(jsonString, key)
 }
 

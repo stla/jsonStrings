@@ -1,9 +1,8 @@
 library(jsonStrings)
-mod_json <- Rcpp::Module("json_module", "jsonStrings")
-jj <- mod_json$JSON
-js <- new(jj, "{\"a\":2}")
-jsptr <- js$jsonPTR()
-mod_jsonptr <- Rcpp::Module("jsonptr_module", "jsonStrings")
-jjptr <- mod_jsonptr$JSONPTR
-x <- new(jjptr, jsptr)
+jsonModule <- Rcpp::Module("jsonModule", "jsonStrings")
+json <- jsonModule$JSON
+jsonPointer <- new(json, "{\"a\":2}")$jsonPointer()
+jsonptrModule <- Rcpp::Module("jsonptrModule", "jsonStrings")
+jsonptr <- jsonptrModule$JSONPTR
+x <- new(jsonptr, jsonPointer)
 x$getkey("a")

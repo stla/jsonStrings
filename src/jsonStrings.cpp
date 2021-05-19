@@ -65,36 +65,66 @@ std::string cpp_jsonAddProperty(
   return js.dump();
 }
 
+Rcpp::XPtr<json> jsonPointer(json jsonObject){
+  Rcpp::XPtr<json> ptr(new json(jsonObject), true);
+  ptr.attr("class") = "jsonString";
+  return ptr;
+}
+
 class JSON {
 public:
-  JSON( std::string jsonString_ ) : jsonString(jsonString_) {
-//    array = new float[10] ;
+  JSON(std::string jsonString_) : jsonString(jsonString_){}
+  
+  Rcpp::XPtr<json> toJSONstring(){
+    if(!json::accept(jsonString)){
+      Rcpp::stop("Invalid JSON string");
+    }
+    return jsonPointer(json::parse(jsonString));
   }
-  
-  Rcpp::XPtr<json> toJSON(){ return Rcpp::XPtr<json>(new json(json::parse(jsonString))) ; }
-  // other methods doing stuff with the data
-  
+
 private:
   std::string jsonString;
-} ;
+};
 
-RCPP_MODULE(json_module) {
+RCPP_MODULE(jsonModule){
   using namespace Rcpp;
-  class_<JSON>( "JSON" )
+  class_<JSON>("JSON")
   .constructor<std::string>()
-  .method( "jsonPTR", &JSON::toJSON )
+  .method("jsonPointer", &JSON::toJSONstring)
   ;
 }
-//RCPP_EXPOSED_AS(JSON)
 
 class JSONPTR {
 public:
-  JSONPTR( Rcpp::XPtr<json> jsonPTR_ ) : jsonPTR(jsonPTR_) {}
+  JSONPTR(Rcpp::XPtr<json> jsonPTR_) : jsonPTR(jsonPTR_){}
+
+  Rcpp::XPtr<json> at(
+      std::vector<std::string> keys,
+      Rcpp::IntegerVector indices,
+      std::vector<bool> isIndex){
+    json js = *jsonPTR;
+    for(size_t i = 0; i < isIndex.size(); i++){
+      if(isIndex[i]){
+        if(!js.is_array()){
+          Rcpp::stop("Not an array.");  
+        }
+        size_t index = indices[i];
+        if(index >= js.size()){
+          Rcpp::stop("Too large index.");
+        }
+        js = js.at(index);  
+      }else{
+        if(!js.is_object()){
+          Rcpp::stop("Not an object.");  
+        }
+        js = js[keys[i]];
+      }
+    }
+    return jsonPointer(js);
+  }
   
-  std::string getkey(std::string key){ 
-    json x;
-    x = *jsonPTR;
-    json js = x[key] ; 
+  std::string jsonString(){ 
+    json js = *jsonPTR;
     return js.dump();
   }
 
@@ -102,11 +132,12 @@ private:
   Rcpp::XPtr<json> jsonPTR;
 } ;
 
-RCPP_MODULE(jsonptr_module) {
+RCPP_MODULE(jsonptrModule){
   using namespace Rcpp;
-  class_<JSONPTR>( "JSONPTR" )
+  class_<JSONPTR>("JSONPTR")
     .constructor<Rcpp::XPtr<json>>()
-    .method( "getkey", &JSONPTR::getkey )
+    .method("at", &JSONPTR::at)
+    .method("jsonString", &JSONPTR::jsonString)
   ;
 }
 

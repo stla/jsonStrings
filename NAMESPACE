@@ -3,5 +3,7 @@
 export(jsonAddProperty)
 export(jsonAt)
 export(jsonHasKey)
+export(jsonString)
+importFrom(Rcpp,Module)
 importFrom(Rcpp,evalCpp)
 useDynLib(jsonStrings, .registration=TRUE)

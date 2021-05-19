@@ -45,15 +45,15 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP _rcpp_module_boot_json_module();
-RcppExport SEXP _rcpp_module_boot_jsonptr_module();
+RcppExport SEXP _rcpp_module_boot_jsonModule();
+RcppExport SEXP _rcpp_module_boot_jsonptrModule();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_jsonStrings_cpp_jsonHasKey", (DL_FUNC) &_jsonStrings_cpp_jsonHasKey, 2},
     {"_jsonStrings_cpp_jsonAt", (DL_FUNC) &_jsonStrings_cpp_jsonAt, 4},
     {"_jsonStrings_cpp_jsonAddProperty", (DL_FUNC) &_jsonStrings_cpp_jsonAddProperty, 3},
-    {"_rcpp_module_boot_json_module", (DL_FUNC) &_rcpp_module_boot_json_module, 0},
-    {"_rcpp_module_boot_jsonptr_module", (DL_FUNC) &_rcpp_module_boot_jsonptr_module, 0},
+    {"_rcpp_module_boot_jsonModule", (DL_FUNC) &_rcpp_module_boot_jsonModule, 0},
+    {"_rcpp_module_boot_jsonptrModule", (DL_FUNC) &_rcpp_module_boot_jsonptrModule, 0},
     {NULL, NULL, 0}
 };
 
