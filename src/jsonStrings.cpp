@@ -164,6 +164,24 @@ public:
     return jsonPointer(js);
   }
   
+  size_t size(){
+    json js = *jsonPTR;
+    return js.size();
+  }
+  
+  Rcpp::XPtr<json> update(Rcpp::XPtr<json> obj){
+    json js1 = *jsonPTR;  
+    if(!js1.is_object()){
+      Rcpp::stop("Not an object.");  
+    }
+    json js2 = *obj;
+    if(!js2.is_object()){
+      Rcpp::stop("Not an object.");  
+    }
+    js1.update(js2);
+    return jsonPointer(js1);
+  }
+  
   std::string jsonString(){ 
     json js = *jsonPTR;
     return js.dump();

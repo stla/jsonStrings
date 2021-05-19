@@ -106,8 +106,6 @@ jsonAddProperty <- function(jsonstring, key, value){
   if(is.character(value)){
     value <- jsonString(value)
   }
-  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  #jsonptr <- jsonptrModule$JSONPTR
   new(JSONPTR, jsonstring)$addProperty(key, value)
 }
 
@@ -133,6 +131,44 @@ jsonErase <- function(jsonstring, at){
   }else{
     stop("Invalid `at` argument", call. = TRUE)
   }
+}
+
+#' @title Number of elements
+#' @description Number of elements in a JSON string.
+#'
+#' @param jsonstring a JSON string 
+#'
+#' @return An integer.
+#' @export
+#'
+#' @examples jsonSize("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jsonSize <- function(jsonstring){
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
+  new(JSONPTR, jsonstring)$size()
+}
+
+#' @title Update object
+#' @description Update a JSON string.
+#'
+#' @param jsonstring1 JSON string representing an object
+#' @param jsonstring2 JSON string representing an object
+#'
+#' @return A JSON string.
+#' @export
+#'
+#' @examples jstring1 <- jsonString("{\"a\":[1,2,3],\"b\":\"hello\"}")
+#' jstring2 <- jsonString("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+#' jsonUpdate(jstring1, jstring2)
+jsonUpdate <- function(jsonstring1, jsonstring2){
+  if(is.character(jsonstring1)){
+    jsonstring1 <- jsonString(jsonstring1)
+  }
+  if(is.character(jsonstring2)){
+    jsonstring2 <- jsonString(jsonstring2)
+  }
+  new(JSONPTR, jsonstring1)$update(jsonstring2)
 }
 
 #' @title JSON string to character string
