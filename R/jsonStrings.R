@@ -168,6 +168,33 @@ jsonUpdate <- function(jsonstring1, jsonstring2){
   new(JSONPTR, jsonstring1)$update(jsonstring2)
 }
 
+#' @title Patch a JSON string
+#' @description Apply a JSON patch to a JSON string.
+#'
+#' @param jsondoc JSON string representing an object or an array
+#' @param jsonpatch JSON patch, a JSON string representing an array
+#'
+#' @return A JSON string.
+#' @export
+#' 
+#' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
+#'
+#' @examples jsondoc <- jsonString("{\"a\":[1,2,3],\"b\":\"hello\"}")
+#' jsonpatch <- jsonString("[
+#'   {\"op\": \"remove\", \"path\": \"/a\"},
+#'   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
+#' ]")
+#' jsonPatch(jsondoc, jsonpatch)
+jsonPatch <- function(jsondoc, jsonpatch){
+  if(is.character(jsondoc)){
+    jsondoc <- jsonString(jsondoc)
+  }
+  if(is.character(jsonpatch)){
+    jsonpatch <- jsonString(jsonpatch)
+  }
+  new(JSONPTR, jsondoc)$patch(jsonpatch)
+}
+
 #' @title Append an element
 #' @description Append an element to a JSON string.
 #'
@@ -210,23 +237,46 @@ jsonIs <- function(jsonstring, type){
   new(JSONPTR, jsonstring)$is(type)
 }
 
+#' @title Type of JSON string 
+#' @description The type of a JSON string.
+#'
+#' @param jsonstring a JSON string
+#'
+#' @return A character string indicating the type of the JSON string.
+#' @export
+jsonType <- function(jsonstring){
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
+  new(JSONPTR, jsonstring)$type()
+}
+
 #' @title JSON string to character string
 #' @description Convert a JSON string to a character string.
 #'
 #' @param jsonstring JSON string
-#'
+#' @param pretty logical value, whether to pretty-format the string
+#' 
 #' @return A character string.
 #' @export
-as.character.jsonString <- function(jsonstring){
-  new(JSONPTR, jsonstring)$jsonString()
+as.character.jsonString <- function(jsonstring, pretty = FALSE){
+  new(JSONPTR, jsonstring)$jsonString(pretty = pretty)
 }
 
 #' @title Print JSON string
 #' @description Print a JSON string.
 #'
 #' @param jsonstring JSON string
+#' @param pretty logical value, whether to pretty-print
+#' @param ... ignored
 #'
 #' @export
-print.jsonString <- function(jsonstring){
-  print(as.character(jsonstring))
+print.jsonString <- function(
+  jsonstring, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...
+){
+  if(pretty){
+    cat(as.character(jsonstring, pretty = TRUE))
+  }else{
+    print(as.character(jsonstring))
+  }
 }

@@ -5,53 +5,11 @@
 
 using namespace Rcpp;
 
-// cpp_jsonHasKey
-bool cpp_jsonHasKey(std::string jsonString, std::string key);
-RcppExport SEXP _jsonStrings_cpp_jsonHasKey(SEXP jsonStringSEXP, SEXP keySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type jsonString(jsonStringSEXP);
-    Rcpp::traits::input_parameter< std::string >::type key(keySEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_jsonHasKey(jsonString, key));
-    return rcpp_result_gen;
-END_RCPP
-}
-// cpp_jsonAt
-std::string cpp_jsonAt(std::string jsonString, std::vector<std::string> keys, Rcpp::IntegerVector indices, std::vector<bool> isIndex);
-RcppExport SEXP _jsonStrings_cpp_jsonAt(SEXP jsonStringSEXP, SEXP keysSEXP, SEXP indicesSEXP, SEXP isIndexSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type jsonString(jsonStringSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type keys(keysSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type indices(indicesSEXP);
-    Rcpp::traits::input_parameter< std::vector<bool> >::type isIndex(isIndexSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_jsonAt(jsonString, keys, indices, isIndex));
-    return rcpp_result_gen;
-END_RCPP
-}
-// cpp_jsonAddProperty
-std::string cpp_jsonAddProperty(std::string jsonString, std::string key, std::string value);
-RcppExport SEXP _jsonStrings_cpp_jsonAddProperty(SEXP jsonStringSEXP, SEXP keySEXP, SEXP valueSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type jsonString(jsonStringSEXP);
-    Rcpp::traits::input_parameter< std::string >::type key(keySEXP);
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_jsonAddProperty(jsonString, key, value));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 RcppExport SEXP _rcpp_module_boot_jsonModule();
 RcppExport SEXP _rcpp_module_boot_jsonptrModule();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_jsonStrings_cpp_jsonHasKey", (DL_FUNC) &_jsonStrings_cpp_jsonHasKey, 2},
-    {"_jsonStrings_cpp_jsonAt", (DL_FUNC) &_jsonStrings_cpp_jsonAt, 4},
-    {"_jsonStrings_cpp_jsonAddProperty", (DL_FUNC) &_jsonStrings_cpp_jsonAddProperty, 3},
     {"_rcpp_module_boot_jsonModule", (DL_FUNC) &_rcpp_module_boot_jsonModule, 0},
     {"_rcpp_module_boot_jsonptrModule", (DL_FUNC) &_rcpp_module_boot_jsonptrModule, 0},
     {NULL, NULL, 0}

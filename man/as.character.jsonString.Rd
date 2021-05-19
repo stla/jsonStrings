@@ -4,10 +4,12 @@
 \alias{as.character.jsonString}
 \title{JSON string to character string}
 \usage{
-\method{as.character}{jsonString}(jsonstring)
+\method{as.character}{jsonString}(jsonstring, pretty = FALSE)
 }
 \arguments{
 \item{jsonstring}{JSON string}
+
+\item{pretty}{logical value, whether to pretty-format the string}
 }
 \value{
 A character string.

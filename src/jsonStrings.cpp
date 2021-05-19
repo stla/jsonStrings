@@ -3,67 +3,6 @@
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
-// [[Rcpp::export]]
-bool cpp_jsonHasKey(std::string jsonString, std::string key){
-  if(!json::accept(jsonString)){
-    Rcpp::stop("Invalid JSON string");
-  }
-  json js = json::parse(jsonString);
-  return js.contains(key);
-}
-
-// [[Rcpp::export]]
-std::string cpp_jsonAt(
-    std::string jsonString, 
-    std::vector<std::string> keys,
-    Rcpp::IntegerVector indices,
-    std::vector<bool> isIndex){
-  if(!json::accept(jsonString)){
-    Rcpp::stop("Invalid JSON string");
-  }
-  json js = json::parse(jsonString);
-  for(size_t i = 0; i < isIndex.size(); i++){
-    if(isIndex[i]){
-      if(!js.is_array()){
-        Rcpp::stop("Not an array.");  
-      }
-      size_t index = indices[i];
-      if(index >= js.size()){
-        Rcpp::stop("Too large index.");
-      }
-      js = js.at(index);  
-    }else{
-      if(!js.is_object()){
-        Rcpp::stop("Not an object.");  
-      }
-      js = js[keys[i]];
-    }
-  }
-  return js.dump();
-}
-
-// [[Rcpp::export]]
-std::string cpp_jsonAddProperty(
-    std::string jsonString, 
-    std::string key,
-    std::string value){
-  if(!json::accept(jsonString)){
-    Rcpp::stop("Invalid JSON string.");
-  }
-  if(!json::accept(value)){
-    Rcpp::stop("Invalid JSON string (new value).");
-  }
-  json js = json::parse(jsonString);
-  json jsvalue = json::parse(value);
-  if(!js.is_object()){
-    Rcpp::stop("Not an object.");  
-  }
-  if(js.contains(key)){
-    Rcpp::stop("New key already present.");  
-  };
-  js.emplace(key, jsvalue);
-  return js.dump();
-}
 
 Rcpp::XPtr<json> jsonPointer(json jsonObject){
   Rcpp::XPtr<json> ptr(new json(jsonObject), true);
@@ -192,9 +131,29 @@ public:
     return jsonPointer(js1);
   }
   
+  Rcpp::XPtr<json> patch(Rcpp::XPtr<json> jspatchptr){
+    json jsdoc = *jsonPTR;
+    if(!(jsdoc.is_object() || jsdoc.is_array())){
+      Rcpp::stop("The `doc` JSON string must be an object or an array.");
+    }
+    json jspatch = *jspatchptr;
+    if(!jspatch.is_array()){
+      Rcpp::stop("The `patch` JSON string is not an array.");
+    }
+    try
+    {
+      json jsresult = jsdoc.patch(jspatch);
+      return jsonPointer(jsresult);
+    }
+    catch(json::exception& e)
+    {
+      Rcpp::stop(e.what());
+    }
+  }
+  
   bool is(int type){
     json js = *jsonPTR;
-    bool result;
+    bool result = false;
     switch(type) {
     case 1:
       result = js.is_array();
@@ -220,10 +179,21 @@ public:
     }
     return result;
   }
-  
-  std::string jsonString(){ 
+
+  std::string type(){
     json js = *jsonPTR;
-    return js.dump();
+    return js.type_name();
+  }
+    
+  std::string jsonString(bool pretty = false){ 
+    json js = *jsonPTR;
+    std::string jsonstring;
+    if(pretty){
+      jsonstring = js.dump(4);  
+    }else{
+      jsonstring = js.dump();  
+    }
+    return jsonstring;
   }
 
 private:
@@ -242,8 +212,10 @@ RCPP_MODULE(jsonptrModule){
     .method("eraseElement", &JSONPTR::eraseElement)
     .method("update", &JSONPTR::update)
     .method("is", &JSONPTR::is)
+    .method("type", &JSONPTR::type)
     .method("push", &JSONPTR::push)
     .method("size", &JSONPTR::size)
+    .method("patch", &JSONPTR::patch)
   ;
 }
 
