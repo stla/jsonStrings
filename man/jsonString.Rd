@@ -10,7 +10,7 @@ jsonString(string)
 \item{string}{a character string}
 }
 \value{
-A JSON string.
+A JSON string (external pointer).
 }
 \description{
 Create a JSON string.

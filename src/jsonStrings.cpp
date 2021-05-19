@@ -142,7 +142,28 @@ public:
     js.emplace(key, jsvalue);
     return jsonPointer(js);
   }
-    
+
+  Rcpp::XPtr<json> eraseProperty(std::string key){
+    json js = *jsonPTR;
+    if(!js.is_object()){
+      Rcpp::stop("Not an object.");  
+    }
+    js.erase(key);
+    return jsonPointer(js);
+  }
+
+  Rcpp::XPtr<json> eraseElement(size_t idx){
+    json js = *jsonPTR;
+    if(!js.is_array()){
+      Rcpp::stop("Not an array.");  
+    }
+    if(idx >= js.size()){
+      Rcpp::stop("Too large index");  
+    }
+    js.erase(idx);
+    return jsonPointer(js);
+  }
+  
   std::string jsonString(){ 
     json js = *jsonPTR;
     return js.dump();

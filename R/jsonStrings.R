@@ -1,21 +1,23 @@
 #' @useDynLib jsonStrings, .registration=TRUE
-#' @importFrom Rcpp evalCpp Module
+#' @importFrom Rcpp evalCpp 
 NULL
 
+Rcpp::loadModule("jsonModule", what = "JSON")
+Rcpp::loadModule("jsonptrModule", what = "JSONPTR")
 
 #' @title JSON string
 #' @description Create a JSON string.
 #'
 #' @param string a character string
 #'
-#' @return A JSON string.
+#' @return A JSON string (external pointer).
 #' @export
 #'
 #' @examples jsonString("[1,[\"a\",99],{\"x\":[2,3,4],\"y\":42}]")
 jsonString <- function(string){
-  jsonModule <- Module("jsonModule", "jsonStrings")
-  json <- jsonModule$JSON
-  new(json, string)$jsonPointer()
+  #jsonModule <- Module("jsonModule", "jsonStrings")
+  #json <- jsonModule$JSON
+  new(JSON, string)$jsonPointer()
 }
 
 #' @title Access an element in a JSON string
@@ -58,9 +60,9 @@ jsonAt <- function(jsonstring, path){
   if(any(indices < 0L, na.rm = TRUE)){
     stop("Negative indices found in path.", call. = TRUE)
   }
-  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  jsonptr <- jsonptrModule$JSONPTR
-  new(jsonptr, jsonstring)$at(keys = keys, indices = indices, isIndex = isIndex)
+  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  #jsonptr <- jsonptrModule$JSONPTR
+  new(JSONPTR, jsonstring)$at(keys = keys, indices = indices, isIndex = isIndex)
 }
 
 
@@ -80,9 +82,9 @@ jsonHasKey <- function(jsonstring, key){
   if(is.character(jsonstring)){
     jsonstring <- jsonString(jsonstring)
   }
-  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  jsonptr <- jsonptrModule$JSONPTR
-  new(jsonptr, jsonstring)$hasKey(key)
+  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  #jsonptr <- jsonptrModule$JSONPTR
+  new(JSONPTR, jsonstring)$hasKey(key)
 }
 
 
@@ -104,9 +106,33 @@ jsonAddProperty <- function(jsonstring, key, value){
   if(is.character(value)){
     value <- jsonString(value)
   }
-  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  jsonptr <- jsonptrModule$JSONPTR
-  new(jsonptr, jsonstring)$addProperty(key, value)
+  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  #jsonptr <- jsonptrModule$JSONPTR
+  new(JSONPTR, jsonstring)$addProperty(key, value)
+}
+
+#' @title Erase property or element
+#' @description Erase an object property or an array element from a JSON string.
+#'
+#' @param jsonstring JSON string representing an object or an array
+#' @param at either a character string, the key of the property to be erased, 
+#'   or an integer, the index of the array element to be erased
+#'
+#' @return A JSON string.
+#' @export
+#'
+#' @examples jsonErase("{\"a\":[1,2,3],\"b\":\"hello\"}", "a")
+jsonErase <- function(jsonstring, at){
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
+  if(is.character(at)){
+    new(JSONPTR, jsonstring)$eraseProperty(at)
+  }else if(is.numeric(at) && at >= 0){
+    new(JSONPTR, jsonstring)$eraseElement(as.integer(at))
+  }else{
+    stop("Invalid `at` argument", call. = TRUE)
+  }
 }
 
 #' @title JSON string to character string
@@ -117,9 +143,9 @@ jsonAddProperty <- function(jsonstring, key, value){
 #' @return A character string.
 #' @export
 as.character.jsonString <- function(jsonstring){
-  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  jsonptr <- jsonptrModule$JSONPTR
-  new(jsonptr, jsonstring)$jsonString()
+  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  #jsonptr <- jsonptrModule$JSONPTR
+  new(JSONPTR, jsonstring)$jsonString()
 }
 
 #' @title Print JSON string
