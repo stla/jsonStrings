@@ -65,3 +65,62 @@ std::string cpp_jsonAddProperty(
   return js.dump();
 }
 
+class JSON {
+public:
+  JSON( std::string jsonString_ ) : jsonString(jsonString_) {
+//    array = new float[10] ;
+  }
+  
+  Rcpp::XPtr<json> toJSON(){ return Rcpp::XPtr<json>(new json(json::parse(jsonString))) ; }
+  // other methods doing stuff with the data
+  
+private:
+  std::string jsonString;
+} ;
+
+RCPP_MODULE(json_module) {
+  using namespace Rcpp;
+  class_<JSON>( "JSON" )
+  .constructor<std::string>()
+  .method( "jsonPTR", &JSON::toJSON )
+  ;
+}
+//RCPP_EXPOSED_AS(JSON)
+
+class JSONPTR {
+public:
+  JSONPTR( Rcpp::XPtr<json> jsonPTR_ ) : jsonPTR(jsonPTR_) {}
+  
+  std::string getkey(std::string key){ 
+    json x;
+    x = *jsonPTR;
+    json js = x[key] ; 
+    return js.dump();
+  }
+
+private:
+  Rcpp::XPtr<json> jsonPTR;
+} ;
+
+RCPP_MODULE(jsonptr_module) {
+  using namespace Rcpp;
+  class_<JSONPTR>( "JSONPTR" )
+    .constructor<Rcpp::XPtr<json>>()
+    .method( "getkey", &JSONPTR::getkey )
+  ;
+}
+
+/*
+//typedef Rcpp::XPtr<JSON> jsonPointer ;
+
+// [[Rcpp::export]]
+Rcpp::XPtr<JSON> create_ptr( std::string jsonString ){
+  return Rcpp::XPtr<JSON>( new JSON(jsonString) ) ;
+}
+
+// [[Rcpp::export]]
+std::string jat(Rcpp::XPtr<JSON> obj, std::string key){
+  json js = obj->toJSON() ;
+  return js[key];
+}
+*/
