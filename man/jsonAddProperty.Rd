@@ -7,11 +7,11 @@
 jsonAddProperty(jsonstring, key, value)
 }
 \arguments{
-\item{jsonstring}{JSON string representing an object}
+\item{jsonstring}{a JSON string representing an object}
 
-\item{key}{character string, the key of the new property}
+\item{key}{a character string, the key of the new property}
 
-\item{value}{JSON string, value of the new property}
+\item{value}{a JSON string, the value of the new property}
 }
 \value{
 A JSON string.

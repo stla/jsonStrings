@@ -7,7 +7,7 @@
 jsonErase(jsonstring, at)
 }
 \arguments{
-\item{jsonstring}{JSON string representing an object or an array}
+\item{jsonstring}{a JSON string representing an object or an array}
 
 \item{at}{either a character string, the key of the property to be erased, 
 or an integer, the index of the array element to be erased}

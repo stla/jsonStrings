@@ -16,8 +16,6 @@ Rcpp::loadModule("jsonptrModule", what = "JSONPTR")
 #'
 #' @examples jsonString("[1,[\"a\",99],{\"x\":[2,3,4],\"y\":42}]")
 jsonString <- function(string){
-  #jsonModule <- Module("jsonModule", "jsonStrings")
-  #json <- jsonModule$JSON
   new(JSON, string)$jsonPointer()
 }
 
@@ -84,13 +82,12 @@ jsonHasKey <- function(jsonstring, key){
   new(JSONPTR, jsonstring)$hasKey(key)
 }
 
-
 #' @title Add new property
 #' @description Add a new property to a JSON string.
 #'
-#' @param jsonstring JSON string representing an object
-#' @param key character string, the key of the new property
-#' @param value JSON string, value of the new property
+#' @param jsonstring a JSON string representing an object
+#' @param key a character string, the key of the new property
+#' @param value a JSON string, the value of the new property
 #'
 #' @return A JSON string.
 #' @export
@@ -109,7 +106,7 @@ jsonAddProperty <- function(jsonstring, key, value){
 #' @title Erase property or element
 #' @description Erase an object property or an array element from a JSON string.
 #'
-#' @param jsonstring JSON string representing an object or an array
+#' @param jsonstring a JSON string representing an object or an array
 #' @param at either a character string, the key of the property to be erased, 
 #'   or an integer, the index of the array element to be erased
 #'
@@ -149,8 +146,8 @@ jsonSize <- function(jsonstring){
 #' @title Update object
 #' @description Update a JSON string.
 #'
-#' @param jsonstring1 JSON string representing an object
-#' @param jsonstring2 JSON string representing an object
+#' @param jsonstring1 a JSON string representing an object
+#' @param jsonstring2 a JSON string representing an object
 #'
 #' @return A JSON string.
 #' @export
@@ -171,8 +168,9 @@ jsonUpdate <- function(jsonstring1, jsonstring2){
 #' @title Patch a JSON string
 #' @description Apply a JSON patch to a JSON string.
 #'
-#' @param jsondoc JSON string representing an object or an array
-#' @param jsonpatch JSON patch, a JSON string representing an array
+#' @param jsondoc a JSON string representing an object or an array
+#' @param jsonpatch a JSON patch, a JSON string representing an array (see 
+#'   the link in details)
 #'
 #' @return A JSON string.
 #' @export
@@ -249,6 +247,8 @@ jsonPush <- function(jsonstring1, jsonstring2){
 #'
 #' @return A logical value.
 #' @export
+#' 
+#' @examples jsonIs("[1,2]", "array")
 jsonIs <- function(jsonstring, type){
   types <- 
     c("array", "object", "number", "integer", "string", "null", "boolean")
@@ -266,6 +266,8 @@ jsonIs <- function(jsonstring, type){
 #'
 #' @return A character string indicating the type of the JSON string.
 #' @export
+#' 
+#' @examples jsonType("[1,2]")
 jsonType <- function(jsonstring){
   if(is.character(jsonstring)){
     jsonstring <- jsonString(jsonstring)
@@ -276,7 +278,7 @@ jsonType <- function(jsonstring){
 #' @title JSON string to character string
 #' @description Convert a JSON string to a character string.
 #'
-#' @param x JSON string
+#' @param x a JSON string
 #' @param pretty logical value, whether to pretty-format the string
 #' @param ... ignored
 #' 
@@ -289,7 +291,7 @@ as.character.jsonString <- function(x, pretty = FALSE, ...){
 #' @title Print JSON string
 #' @description Print a JSON string.
 #'
-#' @param x JSON string
+#' @param x a JSON string
 #' @param pretty logical value, whether to pretty-print
 #' @param ... ignored
 #'

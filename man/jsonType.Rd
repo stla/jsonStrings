@@ -15,3 +15,6 @@ A character string indicating the type of the JSON string.
 \description{
 The type of a JSON string.
 }
+\examples{
+jsonType("[1,2]")
+}

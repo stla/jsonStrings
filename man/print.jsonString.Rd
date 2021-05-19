@@ -7,7 +7,7 @@
 \method{print}{jsonString}(x, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...)
 }
 \arguments{
-\item{x}{JSON string}
+\item{x}{a JSON string}
 
 \item{pretty}{logical value, whether to pretty-print}
 

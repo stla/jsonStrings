@@ -2,6 +2,7 @@
 
 * local R installation, R 3.6.2, Windows 10
 * win-builder (devel)
+* R-Hub
 
 ## R CMD check results
 

@@ -7,9 +7,9 @@
 jsonUpdate(jsonstring1, jsonstring2)
 }
 \arguments{
-\item{jsonstring1}{JSON string representing an object}
+\item{jsonstring1}{a JSON string representing an object}
 
-\item{jsonstring2}{JSON string representing an object}
+\item{jsonstring2}{a JSON string representing an object}
 }
 \value{
 A JSON string.

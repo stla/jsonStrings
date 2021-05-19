@@ -7,9 +7,10 @@
 jsonPatch(jsondoc, jsonpatch)
 }
 \arguments{
-\item{jsondoc}{JSON string representing an object or an array}
+\item{jsondoc}{a JSON string representing an object or an array}
 
-\item{jsonpatch}{JSON patch, a JSON string representing an array}
+\item{jsonpatch}{a JSON patch, a JSON string representing an array (see 
+the link in details)}
 }
 \value{
 A JSON string.

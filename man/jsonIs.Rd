@@ -19,3 +19,6 @@ A logical value.
 \description{
 Check the type of a JSON string.
 }
+\examples{
+jsonIs("[1,2]", "array")
+}

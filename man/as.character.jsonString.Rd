@@ -7,7 +7,7 @@
 \method{as.character}{jsonString}(x, pretty = FALSE, ...)
 }
 \arguments{
-\item{x}{JSON string}
+\item{x}{a JSON string}
 
 \item{pretty}{logical value, whether to pretty-format the string}
 
