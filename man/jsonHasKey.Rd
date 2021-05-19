@@ -4,10 +4,10 @@
 \alias{jsonHasKey}
 \title{Does key exist?}
 \usage{
-jsonHasKey(jsonString, key)
+jsonHasKey(jsonstring, key)
 }
 \arguments{
-\item{jsonString}{a JSON string}
+\item{jsonstring}{a JSON string}
 
 \item{key}{character string}
 }

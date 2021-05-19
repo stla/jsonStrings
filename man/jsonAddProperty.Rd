@@ -4,10 +4,10 @@
 \alias{jsonAddProperty}
 \title{Add new property}
 \usage{
-jsonAddProperty(jsonString, key, value)
+jsonAddProperty(jsonstring, key, value)
 }
 \arguments{
-\item{jsonString}{JSON string representing an object}
+\item{jsonstring}{JSON string representing an object}
 
 \item{key}{character string, the key of the new property}
 

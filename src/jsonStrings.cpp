@@ -122,7 +122,27 @@ public:
     }
     return jsonPointer(js);
   }
-  
+
+  bool hasKey(std::string key){
+    json js = *jsonPTR;
+    return js.contains(key);
+  }
+
+  Rcpp::XPtr<json> addProperty(
+      std::string key,
+      Rcpp::XPtr<json> valuePTR){
+    json js = *jsonPTR;
+    if(!js.is_object()){
+      Rcpp::stop("Not an object.");  
+    }
+    if(js.contains(key)){
+      Rcpp::stop("New key already present.");  
+    };
+    json jsvalue = *valuePTR;
+    js.emplace(key, jsvalue);
+    return jsonPointer(js);
+  }
+    
   std::string jsonString(){ 
     json js = *jsonPTR;
     return js.dump();
@@ -137,6 +157,8 @@ RCPP_MODULE(jsonptrModule){
   class_<JSONPTR>("JSONPTR")
     .constructor<Rcpp::XPtr<json>>()
     .method("at", &JSONPTR::at)
+    .method("hasKey", &JSONPTR::hasKey)
+    .method("addProperty", &JSONPTR::addProperty)
     .method("jsonString", &JSONPTR::jsonString)
   ;
 }

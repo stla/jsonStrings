@@ -7,10 +7,10 @@
 jsonAt(jsonstring, path)
 }
 \arguments{
+\item{jsonstring}{a JSON string representing an array or an object}
+
 \item{path}{path to the element to extract; either a character vector of 
 keys, an integer vector of indices, or a list made of keys and indices}
-
-\item{jsonString}{a JSON string representing an array or an object}
 }
 \value{
 A JSON string.

@@ -80,14 +80,16 @@ jsonHasKey <- function(jsonstring, key){
   if(is.character(jsonstring)){
     jsonstring <- jsonString(jsonstring)
   }
-  cpp_jsonHasKey(jsonString, key)
+  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  jsonptr <- jsonptrModule$JSONPTR
+  new(jsonptr, jsonstring)$hasKey(key)
 }
 
 
 #' @title Add new property
 #' @description Add a new property to a JSON string.
 #'
-#' @param jsonString JSON string representing an object
+#' @param jsonstring JSON string representing an object
 #' @param key character string, the key of the new property
 #' @param value JSON string, value of the new property
 #'
@@ -95,6 +97,14 @@ jsonHasKey <- function(jsonstring, key){
 #' @export
 #'
 #' @examples jsonAddProperty("{\"a\":[1,2,3],\"b\":\"hello\"}", "c", "[1,2]")
-jsonAddProperty <- function(jsonString, key, value){
-  cpp_jsonAddProperty(jsonString, key, value)
+jsonAddProperty <- function(jsonstring, key, value){
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
+  if(is.character(value)){
+    value <- jsonString(value)
+  }
+  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  jsonptr <- jsonptrModule$JSONPTR
+  new(jsonptr, jsonstring)$addProperty(key, value)
 }
