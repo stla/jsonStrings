@@ -171,6 +171,26 @@ jsonUpdate <- function(jsonstring1, jsonstring2){
   new(JSONPTR, jsonstring1)$update(jsonstring2)
 }
 
+#' @title Check type of JSON string 
+#' @description Check the type of a JSON string.
+#'
+#' @param jsonstring a JSON string
+#' @param type the type to be checked, one of \code{"array"}, \code{"object"}, 
+#'   \code{"string"}, \code{"number"}, \code{"integer"}, \code{"null"}, 
+#'   \code{"boolean"}
+#'
+#' @return A logical value.
+#' @export
+jsonIs <- function(jsonstring, type){
+  types <- 
+    c("array", "object", "number", "integer", "string", "null", "boolean")
+  type <- match(match.arg(type, types), types)
+  if(is.character(jsonstring)){
+    jsonstring <- jsonString(jsonstring)
+  }
+  new(JSONPTR, jsonstring)$is(type)
+}
+
 #' @title JSON string to character string
 #' @description Convert a JSON string to a character string.
 #'
@@ -179,8 +199,6 @@ jsonUpdate <- function(jsonstring1, jsonstring2){
 #' @return A character string.
 #' @export
 as.character.jsonString <- function(jsonstring){
-  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  #jsonptr <- jsonptrModule$JSONPTR
   new(JSONPTR, jsonstring)$jsonString()
 }
 

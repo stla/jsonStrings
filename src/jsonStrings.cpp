@@ -182,6 +182,35 @@ public:
     return jsonPointer(js1);
   }
   
+  bool is(int type){
+    json js = *jsonPTR;
+    bool result;
+    switch(type) {
+    case 1:
+      result = js.is_array();
+      break;
+    case 2:
+      result = js.is_object();
+      break;
+    case 3:
+      result = js.is_number();
+      break;
+    case 4:
+      result = js.is_number_integer();
+      break;
+    case 5:
+      result = js.is_string();
+      break;
+    case 6:
+      result = js.is_null();
+      break;
+    case 7:
+      result = js.is_boolean();
+      break;
+    }
+    return result;
+  }
+  
   std::string jsonString(){ 
     json js = *jsonPTR;
     return js.dump();
