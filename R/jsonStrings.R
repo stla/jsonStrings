@@ -108,3 +108,26 @@ jsonAddProperty <- function(jsonstring, key, value){
   jsonptr <- jsonptrModule$JSONPTR
   new(jsonptr, jsonstring)$addProperty(key, value)
 }
+
+#' @title JSON string to character string
+#' @description Convert a JSON string to a character string.
+#'
+#' @param jsonstring JSON string
+#'
+#' @return A character string.
+#' @export
+as.character.jsonString <- function(jsonstring){
+  jsonptrModule <- Module("jsonptrModule", "jsonStrings")
+  jsonptr <- jsonptrModule$JSONPTR
+  new(jsonptr, jsonstring)$jsonString()
+}
+
+#' @title Print JSON string
+#' @description Print a JSON string.
+#'
+#' @param jsonstring JSON string
+#'
+#' @export
+print.jsonString <- function(jsonstring){
+  print(as.character(jsonstring))
+}
