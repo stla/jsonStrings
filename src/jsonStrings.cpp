@@ -181,6 +181,16 @@ public:
     js1.update(js2);
     return jsonPointer(js1);
   }
+
+  Rcpp::XPtr<json> push(Rcpp::XPtr<json> elem){
+    json js1 = *jsonPTR;  
+    if(!(js1.is_array() || js1.is_null())){
+      Rcpp::stop("Not an array.");  
+    }
+    json js2 = *elem;
+    js1.push_back(js2);
+    return jsonPointer(js1);
+  }
   
   bool is(int type){
     json js = *jsonPTR;
@@ -228,6 +238,12 @@ RCPP_MODULE(jsonptrModule){
     .method("hasKey", &JSONPTR::hasKey)
     .method("addProperty", &JSONPTR::addProperty)
     .method("jsonString", &JSONPTR::jsonString)
+    .method("eraseProperty", &JSONPTR::eraseProperty)
+    .method("eraseElement", &JSONPTR::eraseElement)
+    .method("update", &JSONPTR::update)
+    .method("is", &JSONPTR::is)
+    .method("push", &JSONPTR::push)
+    .method("size", &JSONPTR::size)
   ;
 }
 

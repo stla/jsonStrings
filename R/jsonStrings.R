@@ -1,5 +1,5 @@
 #' @useDynLib jsonStrings, .registration=TRUE
-#' @importFrom Rcpp evalCpp 
+#' @importFrom Rcpp evalCpp  
 #' @importFrom methods new
 NULL
 
@@ -61,8 +61,6 @@ jsonAt <- function(jsonstring, path){
   if(any(indices < 0L, na.rm = TRUE)){
     stop("Negative indices found in path.", call. = TRUE)
   }
-  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  #jsonptr <- jsonptrModule$JSONPTR
   new(JSONPTR, jsonstring)$at(keys = keys, indices = indices, isIndex = isIndex)
 }
 
@@ -83,8 +81,6 @@ jsonHasKey <- function(jsonstring, key){
   if(is.character(jsonstring)){
     jsonstring <- jsonString(jsonstring)
   }
-  #jsonptrModule <- Module("jsonptrModule", "jsonStrings")
-  #jsonptr <- jsonptrModule$JSONPTR
   new(JSONPTR, jsonstring)$hasKey(key)
 }
 
@@ -170,6 +166,28 @@ jsonUpdate <- function(jsonstring1, jsonstring2){
     jsonstring2 <- jsonString(jsonstring2)
   }
   new(JSONPTR, jsonstring1)$update(jsonstring2)
+}
+
+#' @title Append an element
+#' @description Append an element to a JSON string.
+#'
+#' @param jsonstring1 JSON string representing an array
+#' @param jsonstring2 JSON string 
+#'
+#' @return A JSON string.
+#' @export
+#'
+#' @examples jstring1 <- jsonString("[1,2,3]")
+#' jstring2 <- jsonString("{\"a\":\"hello\",\"b\":\"goodbye\"}")
+#' jsonPush(jstring1, jstring2)
+jsonPush <- function(jsonstring1, jsonstring2){
+  if(is.character(jsonstring1)){
+    jsonstring1 <- jsonString(jsonstring1)
+  }
+  if(is.character(jsonstring2)){
+    jsonstring2 <- jsonString(jsonstring2)
+  }
+  new(JSONPTR, jsonstring1)$push(jsonstring2)
 }
 
 #' @title Check type of JSON string 
