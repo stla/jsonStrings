@@ -1,7 +1,13 @@
+/*#define JSON_DIAGNOSTICS 1
+#ifdef NDEBUG
+# define NDEBUG_DISABLED
+# undef NDEBUG
+#endif*/
+
+#include "nlohmann/json_cran.hpp"
+using json = nlohmann::json;
 
 #include <Rcpp.h>
-#include "nlohmann/json.hpp"
-using json = nlohmann::json;
 
 
 Rcpp::XPtr<json> jsonPointer(json jsonObject){
@@ -151,6 +157,13 @@ public:
     }
   }
   
+  Rcpp::XPtr<json> merge(Rcpp::XPtr<json> jspatchptr){
+    json jsdoc = *jsonPTR;
+    json jspatch = *jspatchptr;
+    jsdoc.merge_patch(jspatch);
+    return jsonPointer(jsdoc);
+  }
+  
   bool is(int type){
     json js = *jsonPTR;
     bool result = false;
@@ -216,6 +229,7 @@ RCPP_MODULE(jsonptrModule){
     .method("push", &JSONPTR::push)
     .method("size", &JSONPTR::size)
     .method("patch", &JSONPTR::patch)
+    .method("merge", &JSONPTR::merge)
   ;
 }
 

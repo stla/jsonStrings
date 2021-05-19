@@ -195,6 +195,28 @@ jsonPatch <- function(jsondoc, jsonpatch){
   new(JSONPTR, jsondoc)$patch(jsonpatch)
 }
 
+#' @title Merge JSON strings
+#' @description Merge two JSON strings.
+#'
+#' @param jsonstring1 a JSON string 
+#' @param jsonstring2 a JSON string 
+#'
+#' @return A JSON string.
+#' @export
+#'
+#' @examples jstring1 <- jsonString("{\"a\":[1,2,3],\"b\":\"hello\"}")
+#' jstring2 <- jsonString("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+#' jsonMerge(jstring1, jstring2)
+jsonMerge <- function(jsonstring1, jsonstring2){
+  if(is.character(jsonstring1)){
+    jsonstring1 <- jsonString(jsonstring1)
+  }
+  if(is.character(jsonstring2)){
+    jsonstring2 <- jsonString(jsonstring2)
+  }
+  new(JSONPTR, jsonstring1)$merge(jsonstring2)
+}
+
 #' @title Append an element
 #' @description Append an element to a JSON string.
 #'
@@ -254,29 +276,30 @@ jsonType <- function(jsonstring){
 #' @title JSON string to character string
 #' @description Convert a JSON string to a character string.
 #'
-#' @param jsonstring JSON string
+#' @param x JSON string
 #' @param pretty logical value, whether to pretty-format the string
+#' @param ... ignored
 #' 
 #' @return A character string.
 #' @export
-as.character.jsonString <- function(jsonstring, pretty = FALSE){
-  new(JSONPTR, jsonstring)$jsonString(pretty = pretty)
+as.character.jsonString <- function(x, pretty = FALSE, ...){
+  new(JSONPTR, x)$jsonString(pretty = pretty)
 }
 
 #' @title Print JSON string
 #' @description Print a JSON string.
 #'
-#' @param jsonstring JSON string
+#' @param x JSON string
 #' @param pretty logical value, whether to pretty-print
 #' @param ... ignored
 #'
 #' @export
 print.jsonString <- function(
-  jsonstring, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...
+  x, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...
 ){
   if(pretty){
-    cat(as.character(jsonstring, pretty = TRUE))
+    cat(as.character(x, pretty = TRUE))
   }else{
-    print(as.character(jsonstring))
+    print(as.character(x))
   }
 }

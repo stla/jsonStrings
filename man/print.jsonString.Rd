@@ -4,10 +4,10 @@
 \alias{print.jsonString}
 \title{Print JSON string}
 \usage{
-\method{print}{jsonString}(jsonstring, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...)
+\method{print}{jsonString}(x, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...)
 }
 \arguments{
-\item{jsonstring}{JSON string}
+\item{x}{JSON string}
 
 \item{pretty}{logical value, whether to pretty-print}
 
