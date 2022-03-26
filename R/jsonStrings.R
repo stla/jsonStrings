@@ -1,10 +1,9 @@
 #' @useDynLib jsonStrings, .registration=TRUE
-#' @importFrom Rcpp evalCpp  
+#' @importFrom Rcpp evalCpp setRcppClass 
 #' @importFrom methods new
 NULL
 
-Rcpp::loadModule("jsonModule", what = "JSON")
-Rcpp::loadModule("jsonptrModule", what = "JSONPTR")
+JSON <- setRcppClass("JSON")
 
 #' @title JSON string
 #' @description Create a JSON string.
