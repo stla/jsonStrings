@@ -3,14 +3,10 @@
 #' @importFrom methods new
 NULL
 
+#' @export JsonString
+#' @exportClass JsonString 
 JsonString <- setRcppClass("JsonString")
 
-# setMethod("show",
-#           "JsonString",
-#           function(object, pretty = TRUE) {
-#             cat(object$asString(pretty))
-#           }
-# )
 
 #' Class name
 #'
@@ -18,15 +14,23 @@ JsonString <- setRcppClass("JsonString")
 #' @import methods
 #' @field text Text field description
 #' @field fooBar Description of the fooBar field
-#' @export SampleClass
-#' @exportClass SampleClass
-SampleClass <- setRefClass(
-  'SampleClass',
-  fields = list(
-    text = "character",
-    fooBar = "integer"
-  ),
+#' @export jsonStrin
+#' @exportClass jsonStrin
+jsonStrin <- setRefClass(
+  "jsonStrin",
+#  contains = "JsonString",
+  # fields = list(
+  #   jsontring = "character"
+  # ),
   methods = list(
+    initialize = function(string){
+      "Creates a JSON string.
+      \\subsection{Parameters}{\\itemize{
+        \\item{\\code{string} a string representing a JSON object}
+      }}
+      \\subsection{Return value}{An object of class \\code{jsonString}.}"
+      JsonString$new(string)
+    },
     runs = function(a, b) {
       "Lengthy method description.
       \\subsection{Parameters}{\\itemize{
@@ -318,33 +322,33 @@ jsonType <- function(jsonstring){
   new(JSONPTR, jsonstring)$type()
 }
 
-#' @title JSON string to character string
-#' @description Convert a JSON string to a character string.
-#'
-#' @param x a JSON string
-#' @param pretty logical value, whether to pretty-format the string
-#' @param ... ignored
+# #' @title JSON string to character string
+# #' @description Convert a JSON string to a character string.
+# #'
+# #' @param x a JSON string
+# #' @param pretty logical value, whether to pretty-format the string
+# #' @param ... ignored
+# #' 
+# #' @return A character string.
+# #' @export
+#' as.character.jsonString <- function(x, pretty = FALSE, ...){
+#'   new(JSONPTR, x)$jsonString(pretty = pretty)
+#' }
 #' 
-#' @return A character string.
-#' @export
-as.character.jsonString <- function(x, pretty = FALSE, ...){
-  new(JSONPTR, x)$jsonString(pretty = pretty)
-}
-
-#' @title Print JSON string
-#' @description Print a JSON string.
-#'
-#' @param x a JSON string
-#' @param pretty logical value, whether to pretty-print
-#' @param ... ignored
-#'
-#' @export
-print.jsonString <- function(
-  x, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...
-){
-  if(pretty){
-    cat(as.character(x, pretty = TRUE))
-  }else{
-    print(as.character(x))
-  }
-}
+# #' @title Print JSON string
+# #' @description Print a JSON string.
+# #'
+# #' @param x a JSON string
+# #' @param pretty logical value, whether to pretty-print
+# #' @param ... ignored
+# #'
+# #' @export
+#' print.jsonString <- function(
+#'   x, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...
+#' ){
+#'   if(pretty){
+#'     cat(as.character(x, pretty = TRUE))
+#'   }else{
+#'     print(as.character(x))
+#'   }
+#' }
