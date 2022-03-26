@@ -5,6 +5,50 @@ NULL
 
 JsonString <- setRcppClass("JsonString")
 
+# setMethod("show",
+#           "JsonString",
+#           function(object, pretty = TRUE) {
+#             cat(object$asString(pretty))
+#           }
+# )
+
+#' Class name
+#'
+#' Length class description
+#' @import methods
+#' @field text Text field description
+#' @field fooBar Description of the fooBar field
+#' @export SampleClass
+#' @exportClass SampleClass
+SampleClass <- setRefClass(
+  'SampleClass',
+  fields = list(
+    text = "character",
+    fooBar = "integer"
+  ),
+  methods = list(
+    runs = function(a, b) {
+      "Lengthy method description.
+      \\subsection{Parameters}{\\itemize{
+        \\item{\\code{foo} Some foo parameter \\code{code} here.}
+        \\item{\\code{bar} Some bar parameter description.}
+      }}
+      \\subsection{Return Value}{A return value}"
+      a + b
+    },
+    
+    getParameters = function() {
+      "Second method lengthy description.
+      \\subsection{Parameters}{\\itemize{
+      \\item{\\code{fooBar} Another fooBar parameter description.}
+      \\item{\\code{fooBaz} Yet another parameter description.}
+      }}
+      \\subsection{Return Value}{Another return value}"
+      list()
+    }
+  )
+)
+
 #' @title JSON string
 #' @description Create a JSON string.
 #'

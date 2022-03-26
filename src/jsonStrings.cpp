@@ -189,6 +189,10 @@ class JsonString {
     }
     return string;
   }
+  
+  void print(bool pretty = true){
+    Rcpp::Rcout << this->asString(pretty) << "\n";
+  }
 };
 
 RCPP_MODULE(class_JsonString) {
@@ -198,6 +202,7 @@ RCPP_MODULE(class_JsonString) {
       .constructor<jsonXptr>()
       .field("ptr", &JsonString::ptr)
       .method("asString", &JsonString::asString)
+      .method("print", &JsonString::print)
       .method("at", &JsonString::at)
       .method("hasKey", &JsonString::hasKey)
       .method("addProperty", &JsonString::addProperty)
