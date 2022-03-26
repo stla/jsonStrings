@@ -11,10 +11,10 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 
-RcppExport SEXP _rcpp_module_boot_class_JSON();
+RcppExport SEXP _rcpp_module_boot_class_JsonString();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rcpp_module_boot_class_JSON", (DL_FUNC) &_rcpp_module_boot_class_JSON, 0},
+    {"_rcpp_module_boot_class_JsonString", (DL_FUNC) &_rcpp_module_boot_class_JsonString, 0},
     {NULL, NULL, 0}
 };
 

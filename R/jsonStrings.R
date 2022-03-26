@@ -3,7 +3,7 @@
 #' @importFrom methods new
 NULL
 
-JSON <- setRcppClass("JSON")
+JsonString <- setRcppClass("JsonString")
 
 #' @title JSON string
 #' @description Create a JSON string.
@@ -14,7 +14,7 @@ JSON <- setRcppClass("JSON")
 #' @export
 #'
 #' @examples jsonString("[1,[\"a\",99],{\"x\":[2,3,4],\"y\":42}]")
-jsonString <- function(string){
+jString <- function(string){
   new(JSON, string)$jsonPointer()
 }
 
