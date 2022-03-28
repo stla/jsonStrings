@@ -8,6 +8,13 @@ class JsonString {
       : jsonString(toJSONstring(string_)), ptr(jsonXptr(&jsonString, false)) {}
   JsonString(Rcpp::XPtr<json> ptr_, int xxx)
       : jsonString(*(ptr_.get())), ptr(jsonXptr(&jsonString, false)) {}
+  
+  void writeFile(std::string filename){
+    std::ofstream jsonfile;
+    jsonfile.open(filename);
+    jsonfile << std::setw(4) << jsonString << std::endl;
+    jsonfile.close();
+  }
 
   jsonXptr at(Rcpp::List path) {
     json js = jsonString;

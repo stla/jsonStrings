@@ -320,7 +320,6 @@ jsonString <- R6Class(
     #' @description Get the type of the reference JSON string.
     #'
     #' @return A character string indicating the type of the JSON string.
-    #' @export
     #' 
     #' @examples 
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
@@ -329,6 +328,22 @@ jsonString <- R6Class(
     #' jstring$type()
     type = function(){
       private[[".jsonString"]]$type() 
+    },
+    
+    #' @description Write the reference JSON string to a file.
+    #' 
+    #' @param filename name of the file
+    #'
+    #' @return Nothing.
+    #' 
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jsonfile <- tempfile(fileext = ".json")
+    #' jstring$writeFile(jsonfile)
+    #' cat(readLines(jsonfile), sep = "\n")
+    writeFile = function(filename){
+      stopifnot(isString(filename))
+      private[[".jsonString"]]$writeFile(filename)
     }
     
   )

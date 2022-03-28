@@ -152,6 +152,15 @@ jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 jstring$type()
 jstring <- jsonString$new("999")
 jstring$type()
+
+## ------------------------------------------------
+## Method `jsonString$writeFile`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jsonfile <- tempfile(fileext = ".json")
+jstring$writeFile(jsonfile)
+cat(readLines(jsonfile), sep = "\n")
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -177,6 +186,7 @@ jstring$type()
 \item \href{#method-push}{\code{jsonString$push()}}
 \item \href{#method-is}{\code{jsonString$is()}}
 \item \href{#method-type}{\code{jsonString$type()}}
+\item \href{#method-writeFile}{\code{jsonString$writeFile()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -635,6 +645,37 @@ A character string indicating the type of the JSON string.
 jstring$type()
 jstring <- jsonString$new("999")
 jstring$type()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-writeFile"></a>}}
+\if{latex}{\out{\hypertarget{method-writeFile}{}}}
+\subsection{Method \code{writeFile()}}{
+Write the reference JSON string to a file.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$writeFile(filename)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{filename}}{name of the file}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jsonfile <- tempfile(fileext = ".json")
+jstring$writeFile(jsonfile)
+cat(readLines(jsonfile), sep = "\n")
 }
 \if{html}{\out{</div>}}
 
