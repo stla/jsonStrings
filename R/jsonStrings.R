@@ -110,7 +110,6 @@ jsonString <- R6Class(
       private[[".ptrinit"]](ptr)
     },
     
-    
     #' @description Checks whether a key exists in a JSON string.
     #' @param key a string
     #' @return A Boolean value.
@@ -220,6 +219,31 @@ jsonString <- R6Class(
       private[[".jsonString"]]$merge(ptr)
     },
     
+    
+    #' @description Apply a JSON patch to the reference JSON string (if it 
+    #'   represents an array or an object).
+    #'
+    #' @param jspatch a JSON patch, a JSON string representing an array (see 
+    #'   the link in details)
+    #'
+    #' @return A JSON string.
+    #' 
+    #' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
+    #'
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jspatch <- jsonString$new("[
+    #'   {\"op\": \"remove\", \"path\": \"/a\"},
+    #'   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
+    #' ]")
+    #' jstring$patch(jspatch)
+    patch = function(jspatch){
+      stopifnot(isJsonString(jspatch))
+      ptrpatch <- Xptr(jspatch)
+      ptr <- private[[".jsonString"]]$patch(ptrpatch)
+      private[[".ptrinit"]](ptr)
+    },
+    
     #' @description Append an element to the reference JSON string (if it 
     #'   represents an array).
     #'
@@ -277,36 +301,6 @@ jsonString <- R6Class(
   )
   
 )
-
-
-
-#' @title Patch a JSON string
-#' @description Apply a JSON patch to a JSON string.
-#'
-#' @param jsondoc a JSON string representing an object or an array
-#' @param jsonpatch a JSON patch, a JSON string representing an array (see 
-#'   the link in details)
-#'
-#' @return A JSON string.
-#' @export
-#' 
-#' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
-#'
-#' @examples jsondoc <- jsonString("{\"a\":[1,2,3],\"b\":\"hello\"}")
-#' jsonpatch <- jsonString("[
-#'   {\"op\": \"remove\", \"path\": \"/a\"},
-#'   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
-#' ]")
-#' jsonPatch(jsondoc, jsonpatch)
-jsonPatch <- function(jsondoc, jsonpatch){
-  if(is.character(jsondoc)){
-    jsondoc <- jsonString(jsondoc)
-  }
-  if(is.character(jsonpatch)){
-    jsonpatch <- jsonString(jsonpatch)
-  }
-  new(JSONPTR, jsondoc)$patch(jsonpatch)
-}
 
 
 

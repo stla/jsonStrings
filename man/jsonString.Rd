@@ -112,6 +112,17 @@ jstring$merge(jstring2)
 jstring
 
 ## ------------------------------------------------
+## Method `jsonString$patch`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jspatch <- jsonString$new("[
+  {\"op\": \"remove\", \"path\": \"/a\"},
+  {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
+]")
+jstring$patch(jspatch)
+
+## ------------------------------------------------
 ## Method `jsonString$push`
 ## ------------------------------------------------
 
@@ -127,6 +138,9 @@ jstring
 jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 jstring$is("object")
 jstring$is("array")
+jstring <- jsonString$new("999")
+jstring$is("integer")
+jstring$is("number")
 
 ## ------------------------------------------------
 ## Method `jsonString$type`
@@ -157,6 +171,7 @@ jstring$type()
 \item \href{#method-size}{\code{jsonString$size()}}
 \item \href{#method-update}{\code{jsonString$update()}}
 \item \href{#method-merge}{\code{jsonString$merge()}}
+\item \href{#method-patch}{\code{jsonString$patch()}}
 \item \href{#method-push}{\code{jsonString$push()}}
 \item \href{#method-is}{\code{jsonString$is()}}
 \item \href{#method-type}{\code{jsonString$type()}}
@@ -486,6 +501,45 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-patch}{}}}
+\subsection{Method \code{patch()}}{
+Apply a JSON patch to the reference JSON string (if it 
+  represents an array or an object).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$patch(jspatch)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{jspatch}}{a JSON patch, a JSON string representing an array (see 
+the link in details)}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+See \href{http://jsonpatch.com/}{jsonpatch.com}.
+}
+
+\subsection{Returns}{
+A JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jspatch <- jsonString$new("[
+  {\"op\": \"remove\", \"path\": \"/a\"},
+  {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
+]")
+jstring$patch(jspatch)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-push"></a>}}
 \if{latex}{\out{\hypertarget{method-push}{}}}
 \subsection{Method \code{push()}}{
@@ -543,6 +597,9 @@ A Boolean value.
 \preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 jstring$is("object")
 jstring$is("array")
+jstring <- jsonString$new("999")
+jstring$is("integer")
+jstring$is("number")
 }
 \if{html}{\out{</div>}}
 
