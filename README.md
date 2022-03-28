@@ -1,6 +1,10 @@
 jsonStrings
 ================
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/stla/jsonStrings/workflows/R-CMD-check/badge.svg)](https://github.com/stla/jsonStrings/actions)
+<!-- badges: end -->
+
 ``` r
 library(jsonStrings)
 ```

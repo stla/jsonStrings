@@ -3,6 +3,10 @@ title: "jsonStrings"
 output: github_document
 ---
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/stla/jsonStrings/workflows/R-CMD-check/badge.svg)](https://github.com/stla/jsonStrings/actions)
+<!-- badges: end -->
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
