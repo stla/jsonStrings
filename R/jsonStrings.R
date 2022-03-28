@@ -5,6 +5,9 @@ NULL
 
 JsonString <- setRcppClass("JsonString")
 
+Xptr <- function(jstring){
+  jstring[[".__enclos_env__"]][["private"]][[".jsonString"]][["ptr"]]
+}
 
 #' @title R6 class representing a JSON string
 #' @description R6 class representing a JSON string.
@@ -105,108 +108,78 @@ jsonString <- R6Class(
     at = function(...){
       ptr <- private[[".jsonString"]]$at(list(...))
       private[[".ptrinit"]](ptr)
+    },
+    
+    
+    #' @description Checks whether a key exists in a JSON string.
+    #' @param key a string
+    #' @return A Boolean value.
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+    #' )
+    #' jstring$hasKey("x")
+    #' jstring <- jsonString$new(
+    #'   "{\"x\": [2,3,4], \"y\": 42}"
+    #' )
+    #' jstring$hasKey("x")
+    hasKey = function(key){
+      stopifnot(isString(key))
+      private[[".jsonString"]]$hasKey(key)
+    },
+    
+    #' @description Add a new property to the reference JSON string.
+    #'
+    #' @param key a character string, the key of the new property
+    #' @param value a JSON string, the value of the new property
+    #'
+    #' @return Nothing, this updates the reference JSON string.
+    #' 
+    #' @note The reference JSON string must represent an object.
+    #'
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' ppty <- jsonString$new("[9, 99]")
+    #' jstring$addProperty("c", ppty)
+    #' jstring
+    addProperty = function(key, value){
+      stopifnot(isString(key))
+      stopifnot(isJsonString(value))
+      ptr <- Xptr(value)
+      private[[".jsonString"]]$addProperty(key, ptr)
+    },
+    
+    #' @description Erase an object property or an array element from a JSON string.
+    #'
+    #' @param jsonstring a JSON string representing an object or an array
+    #' @param at either a character string, the key of the property to be erased, 
+    #'   or an integer, the index of the array element to be erased
+    #'
+    #' @return Nothing, this updates the reference JSON string.
+    #'
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring$erase("b")
+    #' jstring
+    #' jstring <- jsonString$new("[1, 2, 3, 4, 5]")
+    #' jstring$erase(2)
+    #' jstring
+    erase = function(at){
+      if(isString(at)){
+        private[[".jsonString"]]$eraseProperty(at)
+      }else if(isPositiveInteger(at)){
+        private[[".jsonString"]]$eraseElement(as.integer(at))
+      }else{
+        stop("Invalid `at` argument.")
+      }
     }
     
   )
   
 )
 
-#' @title JSON string
-#' @description Create a JSON string.
-#'
-#' @param string a character string
-#'
-#' @return A JSON string (external pointer).
-#' @export
-#'
-#' @examples jsonString("[1,[\"a\",99],{\"x\":[2,3,4],\"y\":42}]")
-jString <- function(string){
-  new(JSON, string)$jsonPointer()
-}
-
-#' @title Access an element in a JSON string
-#' @description Extract an element in a JSON string by giving a path of keys or 
-#'   indices.
-#'
-#' @param jsonstring a JSON string representing an array or an object
-#' @param path path to the element to extract; either a character vector of 
-#'   keys, an integer vector of indices, or a list made of keys and indices
-#'
-#' @return A JSON string.
-#' @export
-#'
-#' @examples jstring <- "[1,[\"a\",99],{\"x\":[2,3,4],\"y\":42}]"
-#' jsonAt(jstring, 1)
-#' jsonAt(jstring, list(2, "x"))
-#' jsonAt(jstring, list(2, "z"))
-jsonAt <- function(jsonstring, path){
-  if(is.character(jsonstring)){
-    jsonstring <- jsonString(jsonstring)
-  }
-  if(is.list(path)){
-    if(!checkPath(path)){
-      stop("Invalid path.", call. = TRUE)
-    }
-    keys <- unlist(path)
-    indices <- suppressWarnings(as.integer(keys))
-    isIndex <- vapply(path, is.numeric, FUN.VALUE = logical(1L))
-  }else if(is.numeric(path)){
-    keys <- ""
-    indices <- as.integer(path)
-    isIndex <- rep(TRUE, length(path))
-  }else if(is.character(path)){
-    keys <- path
-    indices <- 0L
-    isIndex <- rep(FALSE, length(path))
-  }else{
-    stop("Invalid path.", call. = TRUE)
-  }
-  if(any(indices < 0L, na.rm = TRUE)){
-    stop("Negative indices found in path.", call. = TRUE)
-  }
-  new(JSONPTR, jsonstring)$at(keys = keys, indices = indices, isIndex = isIndex)
-}
 
 
-#' @title Does key exist?
-#' @description Checks whether a key is present in a JSON string.
-#'
-#' @param jsonstring a JSON string
-#' @param key character string
-#'
-#' @return \code{TRUE} if the given key is present in the JSON string, 
-#'   \code{FALSE} otherwise.
-#' @export
-#'
-#' @examples jsonHasKey("{\"a\":[1,2,3],\"b\":\"hello\"}", "b")
-#' jsonHasKey("[1,2,3]", "a")
-jsonHasKey <- function(jsonstring, key){
-  if(is.character(jsonstring)){
-    jsonstring <- jsonString(jsonstring)
-  }
-  new(JSONPTR, jsonstring)$hasKey(key)
-}
-
-#' @title Add new property
-#' @description Add a new property to a JSON string.
-#'
-#' @param jsonstring a JSON string representing an object
-#' @param key a character string, the key of the new property
-#' @param value a JSON string, the value of the new property
-#'
-#' @return A JSON string.
-#' @export
-#'
-#' @examples jsonAddProperty("{\"a\":[1,2,3],\"b\":\"hello\"}", "c", "[1,2]")
-jsonAddProperty <- function(jsonstring, key, value){
-  if(is.character(jsonstring)){
-    jsonstring <- jsonString(jsonstring)
-  }
-  if(is.character(value)){
-    value <- jsonString(value)
-  }
-  new(JSONPTR, jsonstring)$addProperty(key, value)
-}
 
 #' @title Erase property or element
 #' @description Erase an object property or an array element from a JSON string.

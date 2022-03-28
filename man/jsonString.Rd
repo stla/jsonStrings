@@ -6,6 +6,9 @@
 \description{
 R6 class representing a JSON string.
 }
+\note{
+The reference JSON string must represent an object.
+}
 \examples{
 
 ## ------------------------------------------------
@@ -52,6 +55,39 @@ jstring <- jsonString$new(
 )
 jstring$at(1)
 jstring$at(2, "x")
+
+## ------------------------------------------------
+## Method `jsonString$hasKey`
+## ------------------------------------------------
+
+jstring <- jsonString$new(
+  "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+)
+jstring$hasKey("x")
+jstring <- jsonString$new(
+  "{\"x\": [2,3,4], \"y\": 42}"
+)
+jstring$hasKey("x")
+
+## ------------------------------------------------
+## Method `jsonString$addProperty`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+ppty <- jsonString$new("[9, 99]")
+jstring$addProperty("c", ppty)
+jstring
+
+## ------------------------------------------------
+## Method `jsonString$erase`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$erase("b")
+jstring
+jstring <- jsonString$new("[1, 2, 3, 4, 5]")
+jstring$erase(2)
+jstring
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -67,6 +103,9 @@ jstring$at(2, "x")
 \item \href{#method-print}{\code{jsonString$print()}}
 \item \href{#method-asString}{\code{jsonString$asString()}}
 \item \href{#method-at}{\code{jsonString$at()}}
+\item \href{#method-hasKey}{\code{jsonString$hasKey()}}
+\item \href{#method-addProperty}{\code{jsonString$addProperty()}}
+\item \href{#method-erase}{\code{jsonString$erase()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -195,6 +234,110 @@ A \code{jsonString} object.
 )
 jstring$at(1)
 jstring$at(2, "x")
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-hasKey"></a>}}
+\if{latex}{\out{\hypertarget{method-hasKey}{}}}
+\subsection{Method \code{hasKey()}}{
+Checks whether a key exists in a JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$hasKey(key)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{a string}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A Boolean value.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new(
+  "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+)
+jstring$hasKey("x")
+jstring <- jsonString$new(
+  "{\"x\": [2,3,4], \"y\": 42}"
+)
+jstring$hasKey("x")
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-addProperty"></a>}}
+\if{latex}{\out{\hypertarget{method-addProperty}{}}}
+\subsection{Method \code{addProperty()}}{
+Add a new property to the reference JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$addProperty(key, value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{a character string, the key of the new property}
+
+\item{\code{value}}{a JSON string, the value of the new property}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing, this updates the reference JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+ppty <- jsonString$new("[9, 99]")
+jstring$addProperty("c", ppty)
+jstring
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-erase"></a>}}
+\if{latex}{\out{\hypertarget{method-erase}{}}}
+\subsection{Method \code{erase()}}{
+Erase an object property or an array element from a JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$erase(at)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{at}}{either a character string, the key of the property to be erased, 
+or an integer, the index of the array element to be erased}
+
+\item{\code{jsonstring}}{a JSON string representing an object or an array}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing, this updates the reference JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$erase("b")
+jstring
+jstring <- jsonString$new("[1, 2, 3, 4, 5]")
+jstring$erase(2)
+jstring
 }
 \if{html}{\out{</div>}}
 

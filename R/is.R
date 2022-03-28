@@ -9,3 +9,11 @@ isBoolean <- function(x){
 isString <- function(x){
   is.character(x) && isScalar(x)
 }
+
+isPositiveInteger <- function(x){
+  is.numeric(x) && isScalar(x) && floor(x) == x
+}
+
+isJsonString <- function(x){
+  inherits(x, "jsonString")
+}
