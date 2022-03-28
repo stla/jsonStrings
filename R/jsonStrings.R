@@ -3,54 +3,112 @@
 #' @importFrom methods new
 NULL
 
-#' @export JsonString
-#' @exportClass JsonString 
 JsonString <- setRcppClass("JsonString")
 
 
-#' Class name
+#' @title R6 class representing a JSON string
+#' @description R6 class representing a JSON string.
 #'
-#' Length class description
-#' @import methods
-#' @field text Text field description
-#' @field fooBar Description of the fooBar field
-#' @export jsonStrin
-#' @exportClass jsonStrin
-jsonStrin <- setRefClass(
-  "jsonStrin",
-#  contains = "JsonString",
-  # fields = list(
-  #   jsontring = "character"
-  # ),
-  methods = list(
+#' @importFrom R6 R6Class
+#' @export 
+jsonString <- R6Class(
+  "jsonString",
+  
+  lock_class = TRUE,
+  
+  cloneable = FALSE,
+  
+  private = list(
+    .prettyPrint = TRUE,
+    .jsonString = NULL,
+    .ptrinit = function(ptr){
+      json <- jsonString$new("{}")
+      json[[".__enclos_env__"]][["private"]][[".jsonString"]] <- 
+        new("JsonString", ptr, 0L)
+      json
+    }
+  ),
+  
+  active = list(
+    #' @field prettyPrint get or set the value of \code{prettyPrint}
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+    #' )
+    #' jstring$prettyPrint
+    #' jstring
+    #' jstring$prettyPrint <- FALSE
+    #' jstring
+    prettyPrint = function(value) {
+      if(missing(value)) {
+        private[[".prettyPrint"]]
+      } else {
+        stopifnot(
+          isBoolean(value)
+        )
+        private[[".prettyPrint"]] <- value
+      }
+    }
+  ),
+  
+  public = list(
+    
+    #' @description Creates a new \code{jsonString} object.
+    #'
+    #' @param string a string representing a JSON object
+    #'
+    #' @return A \code{jsonString} object.
+    #'
+    #' @examples
+    #' jstring <- "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+    #' jsonString$new(jstring)
     initialize = function(string){
-      "Creates a JSON string.
-      \\subsection{Parameters}{\\itemize{
-        \\item{\\code{string} a string representing a JSON object}
-      }}
-      \\subsection{Return value}{An object of class \\code{jsonString}.}"
-      JsonString$new(string)
-    },
-    runs = function(a, b) {
-      "Lengthy method description.
-      \\subsection{Parameters}{\\itemize{
-        \\item{\\code{foo} Some foo parameter \\code{code} here.}
-        \\item{\\code{bar} Some bar parameter description.}
-      }}
-      \\subsection{Return Value}{A return value}"
-      a + b
+      private[[".jsonString"]] <- JsonString$new(string)
     },
     
-    getParameters = function() {
-      "Second method lengthy description.
-      \\subsection{Parameters}{\\itemize{
-      \\item{\\code{fooBar} Another fooBar parameter description.}
-      \\item{\\code{fooBaz} Yet another parameter description.}
-      }}
-      \\subsection{Return Value}{Another return value}"
-      list()
+    #' @description Print a \code{jsonString} object.
+    #' @param ... ignored
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+    #' )
+    #' jstring
+    #' jstring$prettyPrint <- FALSE
+    #' jstring
+    print = function(...){
+      private[[".jsonString"]]$print(pretty = private[[".prettyPrint"]])
+    },
+    
+    #' @description Converts a \code{jsonString} to a character string.
+    #' @param pretty Boolean, whether to get a pretty string
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+    #' )
+    #' cat(jstring$asString())
+    #' cat(jstring$asString(pretty = TRUE))
+    asString = function(pretty = FALSE){
+      stopifnot(isBoolean(pretty))
+      private[[".jsonString"]]$asString(pretty)
+    },
+
+    #' @description Extract an element in a JSON string by giving a path of 
+    #'   keys or indices.
+    #' @param ... the elements forming the path, integers or strings
+    #' @return A \code{jsonString} object.
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
+    #' )
+    #' jstring$at(1)
+    #' jstring$at(2, "x")
+    at = function(...){
+      ptr <- private[[".jsonString"]]$at(list(...))
+      private[[".ptrinit"]](ptr)
     }
+    
   )
+  
 )
 
 #' @title JSON string

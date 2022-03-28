@@ -1,7 +1,7 @@
 Package: jsonStrings
 Type: Package
 Title: Manipulation of JSON Strings
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person("Stéphane", "Laurent", role = c("aut", "cre"), 
            email = "laurent_step@outlook.fr"),
@@ -11,7 +11,7 @@ Authors@R: c(
 Maintainer: Stéphane Laurent <laurent_step@outlook.fr>
 Description: Fast manipulation of JSON strings. Allows to extract or delete an element in a JSON string, merge two JSON strings, and more.
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.0), methods
+Imports: Rcpp (>= 1.0.0), methods, R6
 LinkingTo: Rcpp
 RoxygenNote: 7.1.2
 Encoding: UTF-8
