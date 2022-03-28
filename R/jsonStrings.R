@@ -305,8 +305,8 @@ jsonString <- R6Class(
     #' @description Check the type of the reference JSON string.
     #'
     #' @param type the type to be checked, one of \code{"array"}, \code{"object"}, 
-    #'   \code{"string"}, \code{"number"}, \code{"integer"}, \code{"null"}, 
-    #'   \code{"boolean"}
+    #'   \code{"string"}, \code{"number"}, \code{"integer"}, \code{"float"}, 
+    #'   \code{"null"}, \code{"boolean"}
     #'
     #' @return A Boolean value.
     #' 
@@ -317,9 +317,17 @@ jsonString <- R6Class(
     #' jstring <- jsonString$new("999")
     #' jstring$is("integer")
     #' jstring$is("number")
+    #' jstring$is("float")
     is = function(type){
-      types <- 
-        c("array", "object", "number", "integer", "string", "null", "boolean")
+      types <-
+        c("array",
+          "object",
+          "number",
+          "integer",
+          "string",
+          "float",
+          "null",
+          "boolean")
       type <- match.arg(type, types)
       private[[".jsonString"]]$is(type) 
     },

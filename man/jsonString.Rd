@@ -143,6 +143,7 @@ jstring$is("array")
 jstring <- jsonString$new("999")
 jstring$is("integer")
 jstring$is("number")
+jstring$is("float")
 
 ## ------------------------------------------------
 ## Method `jsonString$type`
@@ -607,8 +608,8 @@ Check the type of the reference JSON string.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{type}}{the type to be checked, one of \code{"array"}, \code{"object"}, 
-\code{"string"}, \code{"number"}, \code{"integer"}, \code{"null"}, 
-\code{"boolean"}}
+\code{"string"}, \code{"number"}, \code{"integer"}, \code{"float"}, 
+\code{"null"}, \code{"boolean"}}
 }
 \if{html}{\out{</div>}}
 }
@@ -623,6 +624,7 @@ jstring$is("array")
 jstring <- jsonString$new("999")
 jstring$is("integer")
 jstring$is("number")
+jstring$is("float")
 }
 \if{html}{\out{</div>}}
 

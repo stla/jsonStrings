@@ -136,8 +136,8 @@ class JsonString {
   }
 
   bool is(std::string type) {
-    std::array<std::string, 7> types = {"array",  "object", "number", "integer",
-                                        "string", "null",   "boolean"};
+    std::array<std::string, 8> types = {"array",  "object", "number", "integer",
+                                        "string", "null", "boolean", "float"};
     auto it = std::find(types.begin(), types.end(), type);
     if(it == types.end()) {
       Rcpp::stop("Unknown type.");
@@ -165,6 +165,9 @@ class JsonString {
         break;
       case 7:
         result = jsonString.is_boolean();
+        break;
+      case 8:
+        result = jsonString.is_number_float();
         break;
     }
     return result;
