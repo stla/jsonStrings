@@ -359,7 +359,8 @@ Add a new property to the reference JSON string (if it
 \describe{
 \item{\code{key}}{a character string, the key of the new property}
 
-\item{\code{value}}{a JSON string, the value of the new property}
+\item{\code{value}}{a JSON string, either a \code{jsonString} object or a 
+string}
 }
 \if{html}{\out{</div>}}
 }
@@ -382,7 +383,8 @@ jstring
 \if{html}{\out{<a id="method-erase"></a>}}
 \if{latex}{\out{\hypertarget{method-erase}{}}}
 \subsection{Method \code{erase()}}{
-Erase an object property or an array element from a JSON string.
+Erase an object property or an array element from the 
+  reference JSON string.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{jsonString$erase(at)}\if{html}{\out{</div>}}
 }
@@ -392,8 +394,6 @@ Erase an object property or an array element from a JSON string.
 \describe{
 \item{\code{at}}{either a character string, the key of the property to be erased, 
 or an integer, the index of the array element to be erased}
-
-\item{\code{jsonstring}}{a JSON string representing an object or an array}
 }
 \if{html}{\out{</div>}}
 }
@@ -449,7 +449,8 @@ Update the reference JSON string (if it
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{jstring}}{a JSON string representing an object}
+\item{\code{jstring}}{a JSON string representing an object, either a 
+\code{jsonString} object or a string}
 }
 \if{html}{\out{</div>}}
 }
@@ -481,7 +482,8 @@ Merge the reference JSON string (if it
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{jstring}}{a JSON string representing an object}
+\item{\code{jstring}}{a JSON string, either a \code{jsonString} object or a 
+string representing a JSON object}
 }
 \if{html}{\out{</div>}}
 }
@@ -514,7 +516,8 @@ Apply a JSON patch to the reference JSON string (if it
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{jspatch}}{a JSON patch, a JSON string representing an array (see 
-the link in details)}
+the link in details); it could be either a \code{jsonString} object or 
+a string}
 }
 \if{html}{\out{</div>}}
 }
@@ -552,7 +555,8 @@ Append an element to the reference JSON string (if it
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{jstring}}{a JSON string}
+\item{\code{jstring}}{a JSON string, either a \code{jsonString} object or a 
+string representing a JSON object}
 }
 \if{html}{\out{</div>}}
 }

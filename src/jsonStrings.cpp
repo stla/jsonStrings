@@ -13,6 +13,12 @@ json toJSONstring(std::string string) {
   return json::parse(string);
 }
 
+// [[Rcpp::export]]
+Rcpp::XPtr<json> toJSONXptr(std::string string){
+  json jstring = toJSONstring(string);
+  return jsonXptr(new json(jstring), false);
+}
+
 #include "JsonString.h"
 
 RCPP_MODULE(class_JsonString) {

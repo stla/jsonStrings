@@ -131,7 +131,8 @@ jsonString <- R6Class(
     #'   represents an object).
     #'
     #' @param key a character string, the key of the new property
-    #' @param value a JSON string, the value of the new property
+    #' @param value a JSON string, either a \code{jsonString} object or a 
+    #'   string 
     #'
     #' @return Nothing, this updates the reference JSON string.
     #' 
@@ -142,14 +143,19 @@ jsonString <- R6Class(
     #' jstring
     addProperty = function(key, value){
       stopifnot(isString(key))
-      stopifnot(isJsonString(value))
-      ptr <- Xptr(value)
+      if(isJsonString(value)){
+        ptr <- Xptr(value)
+      }else if(isString(value)){
+        ptr <- toJSONXptr(value)
+      }else{
+        stop("Invalid `value` argument.")
+      }
       private[[".jsonString"]]$addProperty(key, ptr)
     },
     
-    #' @description Erase an object property or an array element from a JSON string.
+    #' @description Erase an object property or an array element from the 
+    #'   reference JSON string.
     #'
-    #' @param jsonstring a JSON string representing an object or an array
     #' @param at either a character string, the key of the property to be erased, 
     #'   or an integer, the index of the array element to be erased
     #'
@@ -186,7 +192,8 @@ jsonString <- R6Class(
     #' @description Update the reference JSON string (if it 
     #'   represents an object).
     #'
-    #' @param jstring a JSON string representing an object
+    #' @param jstring a JSON string representing an object, either a 
+    #'   \code{jsonString} object or a string 
     #'
     #' @return Nothing, this updates the reference JSON string.
     #' 
@@ -196,15 +203,21 @@ jsonString <- R6Class(
     #' jstring$update(jstring2)
     #' jstring
     update = function(jstring){
-      stopifnot(isJsonString(jstring))
-      ptr <- Xptr(jstring)
+      if(isJsonString(jstring)){
+        ptr <- Xptr(jstring)
+      }else if(isString(jstring)){
+        ptr <- toJSONXptr(jstring)
+      }else{
+        stop("Invalid `jstring` argument.")
+      }
       private[[".jsonString"]]$update(ptr)
     },
 
     #' @description Merge the reference JSON string (if it 
     #'   represents an object).
     #'
-    #' @param jstring a JSON string representing an object
+    #' @param jstring a JSON string, either a \code{jsonString} object or a 
+    #'   string representing a JSON object
     #'
     #' @return Nothing, this updates the reference JSON string.
     #' 
@@ -214,8 +227,13 @@ jsonString <- R6Class(
     #' jstring$merge(jstring2)
     #' jstring
     merge = function(jstring){
-      stopifnot(isJsonString(jstring))
-      ptr <- Xptr(jstring)
+      if(isJsonString(jstring)){
+        ptr <- Xptr(jstring)
+      }else if(isString(jstring)){
+        ptr <- toJSONXptr(jstring)
+      }else{
+        stop("Invalid `jstring` argument.")
+      }
       private[[".jsonString"]]$merge(ptr)
     },
     
@@ -224,7 +242,8 @@ jsonString <- R6Class(
     #'   represents an array or an object).
     #'
     #' @param jspatch a JSON patch, a JSON string representing an array (see 
-    #'   the link in details)
+    #'   the link in details); it could be either a \code{jsonString} object or 
+    #'   a string 
     #'
     #' @return A JSON string.
     #' 
@@ -238,8 +257,13 @@ jsonString <- R6Class(
     #' ]")
     #' jstring$patch(jspatch)
     patch = function(jspatch){
-      stopifnot(isJsonString(jspatch))
-      ptrpatch <- Xptr(jspatch)
+      if(isJsonString(jspatch)){
+        ptrpatch <- Xptr(jspatch)
+      }else if(isString(jspatch)){
+        ptrpatch <- toJSONXptr(jspatch)
+      }else{
+        stop("Invalid `jspatch` argument.")
+      }
       ptr <- private[[".jsonString"]]$patch(ptrpatch)
       private[[".ptrinit"]](ptr)
     },
@@ -247,7 +271,8 @@ jsonString <- R6Class(
     #' @description Append an element to the reference JSON string (if it 
     #'   represents an array).
     #'
-    #' @param jstring a JSON string
+    #' @param jstring a JSON string, either a \code{jsonString} object or a 
+    #'   string representing a JSON object
     #'
     #' @return Nothing, this updates the reference JSON string.
     #' 
@@ -257,8 +282,13 @@ jsonString <- R6Class(
     #' jstring$push(jstring2)
     #' jstring
     push = function(jstring){
-      stopifnot(isJsonString(jstring))
-      ptr <- Xptr(jstring)
+      if(isJsonString(jstring)){
+        ptr <- Xptr(jstring)
+      }else if(isString(jstring)){
+        ptr <- toJSONXptr(jstring)
+      }else{
+        stop("Invalid `jstring` argument.")
+      }
       private[[".jsonString"]]$push(ptr)
     },
     
