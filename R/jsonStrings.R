@@ -58,7 +58,8 @@ jsonString <- R6Class(
     
     #' @description Creates a new \code{jsonString} object.
     #'
-    #' @param string a string representing a JSON object
+    #' @param string a string representing a JSON object, or the path to a 
+    #'   JSON file
     #'
     #' @return A \code{jsonString} object.
     #'
@@ -66,7 +67,13 @@ jsonString <- R6Class(
     #' jstring <- "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
     #' jsonString$new(jstring)
     initialize = function(string){
-      private[[".jsonString"]] <- JsonString$new(string)
+      stopifnot(isString(string))
+      if(file.exists(string)){
+        ptr <- read_json(string)
+        private[[".jsonString"]] <- JsonString$new(ptr, 0L)
+      }else{
+        private[[".jsonString"]] <- JsonString$new(string)
+      }
     },
     
     #' @description Print a \code{jsonString} object.
@@ -341,6 +348,7 @@ jsonString <- R6Class(
     #' jsonfile <- tempfile(fileext = ".json")
     #' jstring$writeFile(jsonfile)
     #' cat(readLines(jsonfile), sep = "\n")
+    #' jsonString$new(jsonfile)
     writeFile = function(filename){
       stopifnot(isString(filename))
       private[[".jsonString"]]$writeFile(filename)

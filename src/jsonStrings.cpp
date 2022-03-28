@@ -14,8 +14,16 @@ json toJSONstring(std::string string) {
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<json> toJSONXptr(std::string string){
+jsonXptr toJSONXptr(std::string string){
   json jstring = toJSONstring(string);
+  return jsonXptr(new json(jstring), false);
+}
+
+// [[Rcpp::export]]
+jsonXptr read_json(std::string filename){
+  std::ifstream i(filename);
+  json jstring;
+  i >> jstring;
   return jsonXptr(new json(jstring), false);
 }
 

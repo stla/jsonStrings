@@ -161,6 +161,7 @@ jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 jsonfile <- tempfile(fileext = ".json")
 jstring$writeFile(jsonfile)
 cat(readLines(jsonfile), sep = "\n")
+jsonString$new(jsonfile)
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -201,7 +202,8 @@ Creates a new \code{jsonString} object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{string}}{a string representing a JSON object}
+\item{\code{string}}{a string representing a JSON object, or the path to a 
+JSON file}
 }
 \if{html}{\out{</div>}}
 }
@@ -676,6 +678,7 @@ Nothing.
 jsonfile <- tempfile(fileext = ".json")
 jstring$writeFile(jsonfile)
 cat(readLines(jsonfile), sep = "\n")
+jsonString$new(jsonfile)
 }
 \if{html}{\out{</div>}}
 

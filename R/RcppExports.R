@@ -5,3 +5,7 @@ toJSONXptr <- function(string) {
     .Call(`_jsonStrings_toJSONXptr`, string)
 }
 
+read_json <- function(filename) {
+    .Call(`_jsonStrings_read_json`, filename)
+}
+
