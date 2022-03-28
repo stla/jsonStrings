@@ -9,6 +9,14 @@ Xptr <- function(jstring){
   jstring[[".__enclos_env__"]][["private"]][[".jsonString"]][["ptr"]]
 }
 
+Xptrinit <- function(ptr){
+  json <- jsonString$new("{}")
+  json[[".__enclos_env__"]][["private"]][[".jsonString"]] <- 
+    new("JsonString", ptr, 0L)
+  json
+}
+
+
 #' @title R6 class representing a JSON string
 #' @description R6 class representing a JSON string.
 #'
@@ -23,13 +31,7 @@ jsonString <- R6Class(
   
   private = list(
     .prettyPrint = TRUE,
-    .jsonString = NULL,
-    .ptrinit = function(ptr){
-      json <- jsonString$new("{}")
-      json[[".__enclos_env__"]][["private"]][[".jsonString"]] <- 
-        new("JsonString", ptr, 0L)
-      json
-    }
+    .jsonString = NULL
   ),
   
   active = list(
@@ -115,10 +117,10 @@ jsonString <- R6Class(
     #' jstring$at(2, "x")
     at = function(...){
       ptr <- private[[".jsonString"]]$at(list(...))
-      private[[".ptrinit"]](ptr)
+      Xptrinit(ptr)
     },
     
-    #' @description Checks whether a key exists in a JSON string.
+    #' @description Checks whether a key exists in the reference JSON string.
     #' @param key a string
     #' @return A Boolean value.
     #' @examples 
@@ -287,7 +289,7 @@ jsonString <- R6Class(
         stop("Invalid `jspatch` argument.")
       }
       ptr <- private[[".jsonString"]]$patch(ptrpatch)
-      private[[".ptrinit"]](ptr)
+      Xptrinit(ptr)
     },
     
     #' @description Append an element to the reference JSON string (if it 
