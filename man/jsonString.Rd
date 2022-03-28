@@ -101,6 +101,32 @@ jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
 jstring$update(jstring2)
 jstring
+
+## ------------------------------------------------
+## Method `jsonString$push`
+## ------------------------------------------------
+
+jstring <- jsonString$new("[1, 2, 3, 4, 5]")
+jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring$push(jstring2)
+jstring
+
+## ------------------------------------------------
+## Method `jsonString$is`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$is("object")
+jstring$is("array")
+
+## ------------------------------------------------
+## Method `jsonString$type`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$type()
+jstring <- jsonString$new("999")
+jstring$type()
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -121,6 +147,9 @@ jstring
 \item \href{#method-erase}{\code{jsonString$erase()}}
 \item \href{#method-size}{\code{jsonString$size()}}
 \item \href{#method-update}{\code{jsonString$update()}}
+\item \href{#method-push}{\code{jsonString$push()}}
+\item \href{#method-is}{\code{jsonString$is()}}
+\item \href{#method-type}{\code{jsonString$type()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -408,6 +437,94 @@ Nothing, this updates the reference JSON string.
 jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
 jstring$update(jstring2)
 jstring
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-push"></a>}}
+\if{latex}{\out{\hypertarget{method-push}{}}}
+\subsection{Method \code{push()}}{
+Append an element to the reference JSON string (if it 
+  represents an array).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$push(jstring)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{jstring}}{a JSON string}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing, this updates the reference JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("[1, 2, 3, 4, 5]")
+jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring$push(jstring2)
+jstring
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-is"></a>}}
+\if{latex}{\out{\hypertarget{method-is}{}}}
+\subsection{Method \code{is()}}{
+Check the type of the reference JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$is(type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{type}}{the type to be checked, one of \code{"array"}, \code{"object"}, 
+\code{"string"}, \code{"number"}, \code{"integer"}, \code{"null"}, 
+\code{"boolean"}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A Boolean value.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$is("object")
+jstring$is("array")
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-type"></a>}}
+\if{latex}{\out{\hypertarget{method-type}{}}}
+\subsection{Method \code{type()}}{
+Get the type of the reference JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A character string indicating the type of the JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$type()
+jstring <- jsonString$new("999")
+jstring$type()
 }
 \if{html}{\out{</div>}}
 
