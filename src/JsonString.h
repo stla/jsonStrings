@@ -64,6 +64,20 @@ class JsonString {
   }
 
   bool hasKey(std::string key) { return jsonString.contains(key); }
+  
+  Rcpp::StringVector keys(){
+    if(!jsonString.is_object()) {
+      Rcpp::stop("The reference JSON string is not an object.");
+    }
+    size_t s = jsonString.size();
+    Rcpp::StringVector out(s);
+    unsigned i = 0;
+    for(auto item : jsonString.items()){
+      out(i) = item.key();
+      i++;
+    }
+    return out;
+  }
 
   void addProperty(std::string key, jsonXptr pptyXptr) {
     if(!jsonString.is_object()) {

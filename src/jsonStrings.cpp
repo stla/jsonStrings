@@ -39,6 +39,7 @@ RCPP_MODULE(class_JsonString) {
       .method("print", &JsonString::print)
       .method("at", &JsonString::at)
       .method("hasKey", &JsonString::hasKey)
+      .method("keys", &JsonString::keys)
       .method("addProperty", &JsonString::addProperty)
       .method("eraseProperty", &JsonString::eraseProperty)
       .method("eraseElement", &JsonString::eraseElement)

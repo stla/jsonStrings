@@ -67,6 +67,15 @@ jstring <- jsonString$new(
 jstring$hasKey("x")
 
 ## ------------------------------------------------
+## Method `jsonString$keys`
+## ------------------------------------------------
+
+jstring <- jsonString$new(
+  "{\"x\": [2,3,4], \"y\": 42}"
+)
+jstring$keys()
+
+## ------------------------------------------------
 ## Method `jsonString$addProperty`
 ## ------------------------------------------------
 
@@ -179,6 +188,7 @@ jsonString$new(jsonfile)
 \item \href{#method-asString}{\code{jsonString$asString()}}
 \item \href{#method-at}{\code{jsonString$at()}}
 \item \href{#method-hasKey}{\code{jsonString$hasKey()}}
+\item \href{#method-keys}{\code{jsonString$keys()}}
 \item \href{#method-addProperty}{\code{jsonString$addProperty()}}
 \item \href{#method-erase}{\code{jsonString$erase()}}
 \item \href{#method-size}{\code{jsonString$size()}}
@@ -356,6 +366,31 @@ jstring <- jsonString$new(
   "{\"x\": [2,3,4], \"y\": 42}"
 )
 jstring$hasKey("x")
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-keys"></a>}}
+\if{latex}{\out{\hypertarget{method-keys}{}}}
+\subsection{Method \code{keys()}}{
+Get the keys of the reference JSON string (if it represents 
+  an object).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$keys()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A character vector.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new(
+  "{\"x\": [2,3,4], \"y\": 42}"
+)
+jstring$keys()
 }
 \if{html}{\out{</div>}}
 

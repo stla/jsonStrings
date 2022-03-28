@@ -134,6 +134,18 @@ jsonString <- R6Class(
       stopifnot(isString(key))
       private[[".jsonString"]]$hasKey(key)
     },
+
+    #' @description Get the keys of the reference JSON string (if it represents 
+    #'   an object).
+    #' @return A character vector.
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "{\"x\": [2,3,4], \"y\": 42}"
+    #' )
+    #' jstring$keys()
+    keys = function(){
+      private[[".jsonString"]]$keys()
+    },
     
     #' @description Add a new property to the reference JSON string (if it 
     #'   represents an object).
