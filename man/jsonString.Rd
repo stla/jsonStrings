@@ -74,6 +74,8 @@ jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 ppty <- jsonString$new("[9, 99]")
 jstring$addProperty("c", ppty)
 jstring
+jstring$addProperty("d", "null")
+jstring
 
 ## ------------------------------------------------
 ## Method `jsonString$erase`
@@ -98,7 +100,7 @@ jstring$size()
 ## ------------------------------------------------
 
 jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$update(jstring2)
 jstring
 
@@ -107,7 +109,7 @@ jstring
 ## ------------------------------------------------
 
 jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$merge(jstring2)
 jstring
 
@@ -116,10 +118,10 @@ jstring
 ## ------------------------------------------------
 
 jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jspatch <- jsonString$new("[
+jspatch <- "[
   {\"op\": \"remove\", \"path\": \"/a\"},
   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
-]")
+]"
 jstring$patch(jspatch)
 
 ## ------------------------------------------------
@@ -263,6 +265,9 @@ Converts a \code{jsonString} to a character string.
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+A string.
+}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{jstring <- jsonString$new(
@@ -373,6 +378,8 @@ Nothing, this updates the reference JSON string.
 ppty <- jsonString$new("[9, 99]")
 jstring$addProperty("c", ppty)
 jstring
+jstring$addProperty("d", "null")
+jstring
 }
 \if{html}{\out{</div>}}
 
@@ -460,7 +467,7 @@ Nothing, this updates the reference JSON string.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$update(jstring2)
 jstring
 }
@@ -493,7 +500,7 @@ Nothing, this updates the reference JSON string.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$merge(jstring2)
 jstring
 }
@@ -526,15 +533,15 @@ See \href{http://jsonpatch.com/}{jsonpatch.com}.
 }
 
 \subsection{Returns}{
-A JSON string.
+A \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jspatch <- jsonString$new("[
+jspatch <- "[
   {\"op\": \"remove\", \"path\": \"/a\"},
   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
-]")
+]"
 jstring$patch(jspatch)
 }
 \if{html}{\out{</div>}}

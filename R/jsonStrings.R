@@ -84,6 +84,7 @@ jsonString <- R6Class(
     
     #' @description Converts a \code{jsonString} to a character string.
     #' @param pretty Boolean, whether to get a pretty string
+    #' @return A string.
     #' @examples 
     #' jstring <- jsonString$new(
     #'   "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
@@ -140,6 +141,8 @@ jsonString <- R6Class(
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
     #' ppty <- jsonString$new("[9, 99]")
     #' jstring$addProperty("c", ppty)
+    #' jstring
+    #' jstring$addProperty("d", "null")
     #' jstring
     addProperty = function(key, value){
       stopifnot(isString(key))
@@ -199,7 +202,7 @@ jsonString <- R6Class(
     #' 
     #' @examples 
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-    #' jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+    #' jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
     #' jstring$update(jstring2)
     #' jstring
     update = function(jstring){
@@ -223,7 +226,7 @@ jsonString <- R6Class(
     #' 
     #' @examples 
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-    #' jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+    #' jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
     #' jstring$merge(jstring2)
     #' jstring
     merge = function(jstring){
@@ -245,16 +248,16 @@ jsonString <- R6Class(
     #'   the link in details); it could be either a \code{jsonString} object or 
     #'   a string 
     #'
-    #' @return A JSON string.
+    #' @return A \code{jsonString} object.
     #' 
     #' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
     #'
     #' @examples 
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
-    #' jspatch <- jsonString$new("[
+    #' jspatch <- "[
     #'   {\"op\": \"remove\", \"path\": \"/a\"},
     #'   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
-    #' ]")
+    #' ]"
     #' jstring$patch(jspatch)
     patch = function(jspatch){
       if(isJsonString(jspatch)){
