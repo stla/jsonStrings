@@ -103,6 +103,15 @@ jstring$update(jstring2)
 jstring
 
 ## ------------------------------------------------
+## Method `jsonString$merge`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring$merge(jstring2)
+jstring
+
+## ------------------------------------------------
 ## Method `jsonString$push`
 ## ------------------------------------------------
 
@@ -147,6 +156,7 @@ jstring$type()
 \item \href{#method-erase}{\code{jsonString$erase()}}
 \item \href{#method-size}{\code{jsonString$size()}}
 \item \href{#method-update}{\code{jsonString$update()}}
+\item \href{#method-merge}{\code{jsonString$merge()}}
 \item \href{#method-push}{\code{jsonString$push()}}
 \item \href{#method-is}{\code{jsonString$is()}}
 \item \href{#method-type}{\code{jsonString$type()}}
@@ -436,6 +446,38 @@ Nothing, this updates the reference JSON string.
 \preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
 jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
 jstring$update(jstring2)
+jstring
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-merge"></a>}}
+\if{latex}{\out{\hypertarget{method-merge}{}}}
+\subsection{Method \code{merge()}}{
+Merge the reference JSON string (if it 
+  represents an object).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$merge(jstring)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{jstring}}{a JSON string representing an object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing, this updates the reference JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring$merge(jstring2)
 jstring
 }
 \if{html}{\out{</div>}}

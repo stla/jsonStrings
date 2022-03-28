@@ -202,6 +202,24 @@ jsonString <- R6Class(
       private[[".jsonString"]]$update(ptr)
     },
 
+    #' @description Merge the reference JSON string (if it 
+    #'   represents an object).
+    #'
+    #' @param jstring a JSON string representing an object
+    #'
+    #' @return Nothing, this updates the reference JSON string.
+    #' 
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+    #' jstring$merge(jstring2)
+    #' jstring
+    merge = function(jstring){
+      stopifnot(isJsonString(jstring))
+      ptr <- Xptr(jstring)
+      private[[".jsonString"]]$merge(ptr)
+    },
+    
     #' @description Append an element to the reference JSON string (if it 
     #'   represents an array).
     #'
@@ -232,6 +250,9 @@ jsonString <- R6Class(
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
     #' jstring$is("object")
     #' jstring$is("array")
+    #' jstring <- jsonString$new("999")
+    #' jstring$is("integer")
+    #' jstring$is("number")
     is = function(type){
       types <- 
         c("array", "object", "number", "integer", "string", "null", "boolean")
@@ -287,27 +308,6 @@ jsonPatch <- function(jsondoc, jsonpatch){
   new(JSONPTR, jsondoc)$patch(jsonpatch)
 }
 
-#' @title Merge JSON strings
-#' @description Merge two JSON strings.
-#'
-#' @param jsonstring1 a JSON string 
-#' @param jsonstring2 a JSON string 
-#'
-#' @return A JSON string.
-#' @export
-#'
-#' @examples jstring1 <- jsonString("{\"a\":[1,2,3],\"b\":\"hello\"}")
-#' jstring2 <- jsonString("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
-#' jsonMerge(jstring1, jstring2)
-jsonMerge <- function(jsonstring1, jsonstring2){
-  if(is.character(jsonstring1)){
-    jsonstring1 <- jsonString(jsonstring1)
-  }
-  if(is.character(jsonstring2)){
-    jsonstring2 <- jsonString(jsonstring2)
-  }
-  new(JSONPTR, jsonstring1)$merge(jsonstring2)
-}
 
 
 
