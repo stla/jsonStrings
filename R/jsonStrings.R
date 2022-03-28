@@ -377,39 +377,3 @@ jsonString <- R6Class(
   )
   
 )
-
-
-
-
-
-
-# #' @title JSON string to character string
-# #' @description Convert a JSON string to a character string.
-# #'
-# #' @param x a JSON string
-# #' @param pretty logical value, whether to pretty-format the string
-# #' @param ... ignored
-# #' 
-# #' @return A character string.
-# #' @export
-#' as.character.jsonString <- function(x, pretty = FALSE, ...){
-#'   new(JSONPTR, x)$jsonString(pretty = pretty)
-#' }
-#' 
-# #' @title Print JSON string
-# #' @description Print a JSON string.
-# #'
-# #' @param x a JSON string
-# #' @param pretty logical value, whether to pretty-print
-# #' @param ... ignored
-# #'
-# #' @export
-#' print.jsonString <- function(
-#'   x, pretty = getOption("jsonStrings.prettyPrint", FALSE), ...
-#' ){
-#'   if(pretty){
-#'     cat(as.character(x, pretty = TRUE))
-#'   }else{
-#'     print(as.character(x))
-#'   }
-#' }

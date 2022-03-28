@@ -1,11 +1,5 @@
 #include "jsonStrings.h"
 
-// jsonXptr jsonPointer(json jsonObject) {
-//   jsonXptr ptr(new json(jsonObject), true);
-//   ptr.attr("class") = "jsonStringPtr";
-//   return ptr;
-// }
-
 json toJSONstring(std::string string) {
   if(!json::accept(string)) {
     Rcpp::stop("Invalid JSON string.");

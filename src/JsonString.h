@@ -8,8 +8,8 @@ class JsonString {
       : jsonString(toJSONstring(string_)), ptr(jsonXptr(&jsonString, false)) {}
   JsonString(Rcpp::XPtr<json> ptr_, int xxx)
       : jsonString(*(ptr_.get())), ptr(jsonXptr(&jsonString, false)) {}
-  
-  void writeFile(std::string filename){
+
+  void writeFile(std::string filename) {
     std::ofstream jsonfile;
     jsonfile.open(filename);
     jsonfile << std::setw(4) << jsonString << std::endl;
@@ -64,15 +64,15 @@ class JsonString {
   }
 
   bool hasKey(std::string key) { return jsonString.contains(key); }
-  
-  Rcpp::StringVector keys(){
+
+  Rcpp::StringVector keys() {
     if(!jsonString.is_object()) {
       Rcpp::stop("The reference JSON string is not an object.");
     }
     size_t s = jsonString.size();
     Rcpp::StringVector out(s);
     unsigned i = 0;
-    for(auto item : jsonString.items()){
+    for(auto item : jsonString.items()) {
       out(i) = item.key();
       i++;
     }
@@ -150,8 +150,9 @@ class JsonString {
   }
 
   bool is(std::string type) {
-    std::array<std::string, 8> types = {"array",  "object", "number", "integer",
-                                        "string", "null", "boolean", "float"};
+    std::array<std::string, 8> types = {"array",   "object", "number",
+                                        "integer", "string", "null",
+                                        "boolean", "float"};
     auto it = std::find(types.begin(), types.end(), type);
     if(it == types.end()) {
       Rcpp::stop("Unknown type.");
