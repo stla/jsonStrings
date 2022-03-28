@@ -6,9 +6,6 @@
 \description{
 R6 class representing a JSON string.
 }
-\note{
-The reference JSON string must represent an object.
-}
 \examples{
 
 ## ------------------------------------------------
@@ -88,6 +85,22 @@ jstring
 jstring <- jsonString$new("[1, 2, 3, 4, 5]")
 jstring$erase(2)
 jstring
+
+## ------------------------------------------------
+## Method `jsonString$size`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$size()
+
+## ------------------------------------------------
+## Method `jsonString$update`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring$update(jstring2)
+jstring
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -106,6 +119,8 @@ jstring
 \item \href{#method-hasKey}{\code{jsonString$hasKey()}}
 \item \href{#method-addProperty}{\code{jsonString$addProperty()}}
 \item \href{#method-erase}{\code{jsonString$erase()}}
+\item \href{#method-size}{\code{jsonString$size()}}
+\item \href{#method-update}{\code{jsonString$update()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -279,7 +294,8 @@ jstring$hasKey("x")
 \if{html}{\out{<a id="method-addProperty"></a>}}
 \if{latex}{\out{\hypertarget{method-addProperty}{}}}
 \subsection{Method \code{addProperty()}}{
-Add a new property to the reference JSON string.
+Add a new property to the reference JSON string (if it 
+  represents an object).
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{jsonString$addProperty(key, value)}\if{html}{\out{</div>}}
 }
@@ -337,6 +353,60 @@ jstring$erase("b")
 jstring
 jstring <- jsonString$new("[1, 2, 3, 4, 5]")
 jstring$erase(2)
+jstring
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-size"></a>}}
+\if{latex}{\out{\hypertarget{method-size}{}}}
+\subsection{Method \code{size()}}{
+Number of elements in the reference JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$size()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+An integer.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring$size()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-update"></a>}}
+\if{latex}{\out{\hypertarget{method-update}{}}}
+\subsection{Method \code{update()}}{
+Update the reference JSON string (if it 
+  represents an object).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$update(jstring)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{jstring}}{a JSON string representing an object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing, this updates the reference JSON string.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring$update(jstring2)
 jstring
 }
 \if{html}{\out{</div>}}

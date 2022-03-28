@@ -128,15 +128,14 @@ jsonString <- R6Class(
       private[[".jsonString"]]$hasKey(key)
     },
     
-    #' @description Add a new property to the reference JSON string.
+    #' @description Add a new property to the reference JSON string (if it 
+    #'   represents an object).
     #'
     #' @param key a character string, the key of the new property
     #' @param value a JSON string, the value of the new property
     #'
     #' @return Nothing, this updates the reference JSON string.
     #' 
-    #' @note The reference JSON string must represent an object.
-    #'
     #' @examples 
     #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
     #' ppty <- jsonString$new("[9, 99]")
@@ -172,6 +171,35 @@ jsonString <- R6Class(
       }else{
         stop("Invalid `at` argument.")
       }
+    },
+    
+    #' @description Number of elements in the reference JSON string.
+    #' 
+    #' @return An integer.
+    #' 
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring$size()
+    size = function(){
+      private[[".jsonString"]]$size()
+    },
+    
+    #' @description Update the reference JSON string (if it 
+    #'   represents an object).
+    #'
+    #' @param jstring a JSON string representing an object
+    #'
+    #' @return Nothing, this updates the reference JSON string.
+    #' 
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+    #' jstring$update(jstring2)
+    #' jstring
+    update = function(jstring){
+      stopifnot(isJsonString(jstring))
+      ptr <- Xptr(jstring)
+      private[[".jsonString"]]$update(ptr)
     }
     
   )
@@ -181,45 +209,6 @@ jsonString <- R6Class(
 
 
 
-#' @title Erase property or element
-#' @description Erase an object property or an array element from a JSON string.
-#'
-#' @param jsonstring a JSON string representing an object or an array
-#' @param at either a character string, the key of the property to be erased, 
-#'   or an integer, the index of the array element to be erased
-#'
-#' @return A JSON string.
-#' @export
-#'
-#' @examples jsonErase("{\"a\":[1,2,3],\"b\":\"hello\"}", "a")
-jsonErase <- function(jsonstring, at){
-  if(is.character(jsonstring)){
-    jsonstring <- jsonString(jsonstring)
-  }
-  if(is.character(at)){
-    new(JSONPTR, jsonstring)$eraseProperty(at)
-  }else if(is.numeric(at) && at >= 0){
-    new(JSONPTR, jsonstring)$eraseElement(as.integer(at))
-  }else{
-    stop("Invalid `at` argument", call. = TRUE)
-  }
-}
-
-#' @title Number of elements
-#' @description Number of elements in a JSON string.
-#'
-#' @param jsonstring a JSON string 
-#'
-#' @return An integer.
-#' @export
-#'
-#' @examples jsonSize("{\"a\":[1,2,3],\"b\":\"hello\"}")
-jsonSize <- function(jsonstring){
-  if(is.character(jsonstring)){
-    jsonstring <- jsonString(jsonstring)
-  }
-  new(JSONPTR, jsonstring)$size()
-}
 
 #' @title Update object
 #' @description Update a JSON string.
