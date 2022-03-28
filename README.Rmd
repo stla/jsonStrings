@@ -9,18 +9,18 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 
 ```{r package}
 library(jsonStrings)
-options("jsonStrings.prettyPrint" = TRUE) # for pretty-printing the JSON strings
 ```
 
 
 ## Define a JSON string
 
 ```{r jsonstring}
-jsonstring <- jsonString("
+jstring <- jsonString$new("
   {
     \"foo\": \"hello\",
     \"bar\": {\"x\": 1, \"y\": 2},
-    \"baz\": [9, 99, null]
+    \"baz\": [9, 99, null],
+    \"qux\": [null, [0, 1], {\"a\": 1000}]
   }
 ")
 ```
@@ -28,55 +28,57 @@ jsonstring <- jsonString("
 ## Extract a JSON value
 
 ```{r}
-jsonAt(jsonstring, "foo")
-jsonAt(jsonstring, c("bar", "y"))
-jsonAt(jsonstring, list("baz", 2))
+jstring$at("foo")
+jstring$at("bar", "y")
+jstring$at("baz", 2)
 ```
 
 ## Erase a JSON value
 
 ```{r}
-jsonErase(jsonstring, "baz")
+jstring$erase("baz")
+jstring
 ```
 
 ## Check existence of a property
 
 ```{r}
-jsonHasKey(jsonstring, "bar")
+jstring$hasKey("bar")
 ```
 
 ## Check a type
 
 ```{r}
-jsonIs(jsonstring, "object")
+jstring$is("object")
 ```
 
 ## Add a property
 
 ```{r}
-jsonAddProperty(jsonstring, "new", "[4,5]")
+jstring$addProperty("new", "[4,5]")
+jstring
 ```
 
 ## Update a JSON string
 
 ```{r}
-jsonUpdate(
-  jsonstring,
+jstring$update(
   "{
     \"foo\": \"goodbye\",
-    \"qux\": 10000
+    \"quux\": 10000
   }"
 )
+jstring
 ```
 
 ## Patch a JSON string
 
 ```{r}
-jsonpatch <- jsonString("[
+jspatch <- "[
   {\"op\": \"remove\", \"path\": \"/foo\"},
-  {\"op\": \"replace\", \"path\": \"/baz/2\", \"value\": 9999}
-]")
-jsonPatch(jsonstring, jsonpatch)
+  {\"op\": \"replace\", \"path\": \"/qux/2\", \"value\": 9999}
+]"
+jstring$patch(jspatch)
 ```
 
 

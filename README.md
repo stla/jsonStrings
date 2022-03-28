@@ -3,17 +3,17 @@ jsonStrings
 
 ``` r
 library(jsonStrings)
-options("jsonStrings.prettyPrint" = TRUE) # for pretty-printing the JSON strings
 ```
 
 ## Define a JSON string
 
 ``` r
-jsonstring <- jsonString("
+jstring <- jsonString$new("
   {
     \"foo\": \"hello\",
     \"bar\": {\"x\": 1, \"y\": 2},
-    \"baz\": [9, 99, null]
+    \"baz\": [9, 99, null],
+    \"qux\": [null, [0, 1], {\"a\": 1000}]
   }
 ")
 ```
@@ -21,59 +21,76 @@ jsonstring <- jsonString("
 ## Extract a JSON value
 
 ``` r
-jsonAt(jsonstring, "foo")
+jstring$at("foo")
 ## "hello"
-jsonAt(jsonstring, c("bar", "y"))
+jstring$at("bar", "y")
 ## 2
-jsonAt(jsonstring, list("baz", 2))
+jstring$at("baz", 2)
 ## null
 ```
 
 ## Erase a JSON value
 
 ``` r
-jsonErase(jsonstring, "baz")
+jstring$erase("baz")
+jstring
 ## {
 ##     "bar": {
 ##         "x": 1,
 ##         "y": 2
 ##     },
-##     "foo": "hello"
+##     "foo": "hello",
+##     "qux": [
+##         null,
+##         [
+##             0,
+##             1
+##         ],
+##         {
+##             "a": 1000
+##         }
+##     ]
 ## }
 ```
 
 ## Check existence of a property
 
 ``` r
-jsonHasKey(jsonstring, "bar")
+jstring$hasKey("bar")
 ## [1] TRUE
 ```
 
 ## Check a type
 
 ``` r
-jsonIs(jsonstring, "object")
+jstring$is("object")
 ## [1] TRUE
 ```
 
 ## Add a property
 
 ``` r
-jsonAddProperty(jsonstring, "new", "[4,5]")
+jstring$addProperty("new", "[4,5]")
+jstring
 ## {
 ##     "bar": {
 ##         "x": 1,
 ##         "y": 2
 ##     },
-##     "baz": [
-##         9,
-##         99,
-##         null
-##     ],
 ##     "foo": "hello",
 ##     "new": [
 ##         4,
 ##         5
+##     ],
+##     "qux": [
+##         null,
+##         [
+##             0,
+##             1
+##         ],
+##         {
+##             "a": 1000
+##         }
 ##     ]
 ## }
 ```
@@ -81,44 +98,61 @@ jsonAddProperty(jsonstring, "new", "[4,5]")
 ## Update a JSON string
 
 ``` r
-jsonUpdate(
-  jsonstring,
+jstring$update(
   "{
     \"foo\": \"goodbye\",
-    \"qux\": 10000
+    \"quux\": 10000
   }"
 )
+jstring
 ## {
 ##     "bar": {
 ##         "x": 1,
 ##         "y": 2
 ##     },
-##     "baz": [
-##         9,
-##         99,
-##         null
-##     ],
 ##     "foo": "goodbye",
-##     "qux": 10000
+##     "new": [
+##         4,
+##         5
+##     ],
+##     "quux": 10000,
+##     "qux": [
+##         null,
+##         [
+##             0,
+##             1
+##         ],
+##         {
+##             "a": 1000
+##         }
+##     ]
 ## }
 ```
 
 ## Patch a JSON string
 
 ``` r
-jsonpatch <- jsonString("[
+jspatch <- "[
   {\"op\": \"remove\", \"path\": \"/foo\"},
-  {\"op\": \"replace\", \"path\": \"/baz/2\", \"value\": 9999}
-]")
-jsonPatch(jsonstring, jsonpatch)
+  {\"op\": \"replace\", \"path\": \"/qux/2\", \"value\": 9999}
+]"
+jstring$patch(jspatch)
 ## {
 ##     "bar": {
 ##         "x": 1,
 ##         "y": 2
 ##     },
-##     "baz": [
-##         9,
-##         99,
+##     "new": [
+##         4,
+##         5
+##     ],
+##     "quux": 10000,
+##     "qux": [
+##         null,
+##         [
+##             0,
+##             1
+##         ],
 ##         9999
 ##     ]
 ## }
