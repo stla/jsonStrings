@@ -44,5 +44,6 @@ RCPP_MODULE(class_JsonString) {
       .method("size", &JsonString::size)
       .method("patch", &JsonString::patch)
       .method("merge", &JsonString::merge)
+      .method("flatten", &JsonString::flatten)
       .method("writeFile", &JsonString::writeFile);
 }

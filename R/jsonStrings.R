@@ -377,6 +377,20 @@ jsonString <- R6Class(
       private[[".jsonString"]]$type() 
     },
     
+    #' @description Flatten the reference JSON string.
+    #'
+    #' @return A \code{jsonString} object.
+    #' 
+    #' @examples 
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":{\"x\":\"hello\",\"y\":\"hi\"}}"
+    #' )
+    #' jstring$flatten()
+    flatten = function(){
+      ptr <- private[[".jsonString"]]$flatten()
+      Xptrinit(ptr)
+    },
+    
     #' @description Write the reference JSON string to a file.
     #' 
     #' @param filename name of the file

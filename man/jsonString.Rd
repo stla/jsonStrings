@@ -182,6 +182,15 @@ jstring <- jsonString$new("999")
 jstring$type()
 
 ## ------------------------------------------------
+## Method `jsonString$flatten`
+## ------------------------------------------------
+
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":{\"x\":\"hello\",\"y\":\"hi\"}}"
+)
+jstring$flatten()
+
+## ------------------------------------------------
 ## Method `jsonString$writeFile`
 ## ------------------------------------------------
 
@@ -232,6 +241,7 @@ jstring
 \item \href{#method-push}{\code{jsonString$push()}}
 \item \href{#method-is}{\code{jsonString$is()}}
 \item \href{#method-type}{\code{jsonString$type()}}
+\item \href{#method-flatten}{\code{jsonString$flatten()}}
 \item \href{#method-writeFile}{\code{jsonString$writeFile()}}
 \item \href{#method-copy}{\code{jsonString$copy()}}
 }
@@ -737,6 +747,30 @@ A character string indicating the type of the JSON string.
 jstring$type()
 jstring <- jsonString$new("999")
 jstring$type()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-flatten"></a>}}
+\if{latex}{\out{\hypertarget{method-flatten}{}}}
+\subsection{Method \code{flatten()}}{
+Flatten the reference JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$flatten()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{jsonString} object.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":{\"x\":\"hello\",\"y\":\"hi\"}}"
+)
+jstring$flatten()
 }
 \if{html}{\out{</div>}}
 

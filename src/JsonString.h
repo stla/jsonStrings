@@ -203,4 +203,9 @@ class JsonString {
   void print(bool pretty = true) {
     Rcpp::Rcout << this->asString(pretty) << "\n";
   }
+  
+  jsonXptr flatten(){
+    json jflat = jsonString.flatten();
+    return jsonXptr(new json(jflat), false);
+  }
 };
