@@ -2,9 +2,9 @@
 % Please edit documentation in R/jsonStrings.R
 \name{jsonString}
 \alias{jsonString}
-\title{R6 class representing a JSON string}
+\title{R6 class to represent a JSON string}
 \description{
-R6 class representing a JSON string.
+R6 class to represent a JSON string.
 }
 \examples{
 
@@ -79,7 +79,9 @@ jstring$keys()
 ## Method `jsonString$addProperty`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 ppty <- jsonString$new("[9, 99]")
 jstring$addProperty("c", ppty)
 jstring
@@ -90,7 +92,9 @@ jstring
 ## Method `jsonString$erase`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$erase("b")
 jstring
 jstring <- jsonString$new("[1, 2, 3, 4, 5]")
@@ -101,14 +105,18 @@ jstring
 ## Method `jsonString$size`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$size()
 
 ## ------------------------------------------------
 ## Method `jsonString$update`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$update(jstring2)
 jstring
@@ -117,7 +125,9 @@ jstring
 ## Method `jsonString$merge`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$merge(jstring2)
 jstring
@@ -126,7 +136,9 @@ jstring
 ## Method `jsonString$patch`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jspatch <- "[
   {\"op\": \"remove\", \"path\": \"/a\"},
   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
@@ -138,7 +150,9 @@ jstring$patch(jspatch)
 ## ------------------------------------------------
 
 jstring <- jsonString$new("[1, 2, 3, 4, 5]")
-jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring2 <- jsonString$new(
+  "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
+ )
 jstring$push(jstring2)
 jstring
 
@@ -146,7 +160,9 @@ jstring
 ## Method `jsonString$is`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$is("object")
 jstring$is("array")
 jstring <- jsonString$new("999")
@@ -158,7 +174,9 @@ jstring$is("float")
 ## Method `jsonString$type`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$type()
 jstring <- jsonString$new("999")
 jstring$type()
@@ -167,7 +185,9 @@ jstring$type()
 ## Method `jsonString$writeFile`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jsonfile <- tempfile(fileext = ".json")
 jstring$writeFile(jsonfile)
 cat(readLines(jsonfile), sep = "\n")
@@ -177,7 +197,9 @@ jsonString$new(jsonfile)
 ## Method `jsonString$copy`
 ## ------------------------------------------------
 
-jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 copy <- jstring$copy()
 copy$erase("b")
 jstring
@@ -435,7 +457,9 @@ Nothing, this updates the reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 ppty <- jsonString$new("[9, 99]")
 jstring$addProperty("c", ppty)
 jstring
@@ -470,7 +494,9 @@ Nothing, this updates the reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$erase("b")
 jstring
 jstring <- jsonString$new("[1, 2, 3, 4, 5]")
@@ -496,7 +522,9 @@ An integer.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$size()
 }
 \if{html}{\out{</div>}}
@@ -527,7 +555,9 @@ Nothing, this updates the reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$update(jstring2)
 jstring
@@ -560,7 +590,9 @@ Nothing, this updates the reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
 jstring$merge(jstring2)
 jstring
@@ -598,7 +630,9 @@ A \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jspatch <- "[
   {\"op\": \"remove\", \"path\": \"/a\"},
   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
@@ -634,7 +668,9 @@ Nothing, this updates the reference JSON string.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{jstring <- jsonString$new("[1, 2, 3, 4, 5]")
-jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+jstring2 <- jsonString$new(
+  "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
+ )
 jstring$push(jstring2)
 jstring
 }
@@ -666,7 +702,9 @@ A Boolean value.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$is("object")
 jstring$is("array")
 jstring <- jsonString$new("999")
@@ -693,7 +731,9 @@ A character string indicating the type of the JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jstring$type()
 jstring <- jsonString$new("999")
 jstring$type()
@@ -724,7 +764,9 @@ Nothing.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 jsonfile <- tempfile(fileext = ".json")
 jstring$writeFile(jsonfile)
 cat(readLines(jsonfile), sep = "\n")
@@ -749,7 +791,9 @@ A \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+\preformatted{jstring <- jsonString$new(
+  "{\"a\":[1,2,3],\"b\":\"hello\"}"
+)
 copy <- jstring$copy()
 copy$erase("b")
 jstring

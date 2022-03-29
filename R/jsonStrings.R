@@ -17,8 +17,8 @@ Xptrinit <- function(ptr){
 }
 
 
-#' @title R6 class representing a JSON string
-#' @description R6 class representing a JSON string.
+#' @title R6 class to represent a JSON string
+#' @description R6 class to represent a JSON string.
 #'
 #' @importFrom R6 R6Class
 #' @export 
@@ -159,7 +159,9 @@ jsonString <- R6Class(
     #' @return Nothing, this updates the reference JSON string.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' ppty <- jsonString$new("[9, 99]")
     #' jstring$addProperty("c", ppty)
     #' jstring
@@ -186,7 +188,9 @@ jsonString <- R6Class(
     #' @return Nothing, this updates the reference JSON string.
     #'
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jstring$erase("b")
     #' jstring
     #' jstring <- jsonString$new("[1, 2, 3, 4, 5]")
@@ -207,7 +211,9 @@ jsonString <- R6Class(
     #' @return An integer.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jstring$size()
     size = function(){
       private[[".jsonString"]]$size()
@@ -222,7 +228,9 @@ jsonString <- R6Class(
     #' @return Nothing, this updates the reference JSON string.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
     #' jstring$update(jstring2)
     #' jstring
@@ -246,7 +254,9 @@ jsonString <- R6Class(
     #' @return Nothing, this updates the reference JSON string.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
     #' jstring$merge(jstring2)
     #' jstring
@@ -274,7 +284,9 @@ jsonString <- R6Class(
     #' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
     #'
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jspatch <- "[
     #'   {\"op\": \"remove\", \"path\": \"/a\"},
     #'   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
@@ -302,7 +314,9 @@ jsonString <- R6Class(
     #' 
     #' @examples 
     #' jstring <- jsonString$new("[1, 2, 3, 4, 5]")
-    #' jstring2 <- jsonString$new("{\"a\":[4,5,6],\"c\":\"goodbye\"}")
+    #' jstring2 <- jsonString$new(
+    #'   "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
+    #'  )
     #' jstring$push(jstring2)
     #' jstring
     push = function(jstring){
@@ -325,7 +339,9 @@ jsonString <- R6Class(
     #' @return A Boolean value.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jstring$is("object")
     #' jstring$is("array")
     #' jstring <- jsonString$new("999")
@@ -351,7 +367,9 @@ jsonString <- R6Class(
     #' @return A character string indicating the type of the JSON string.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jstring$type()
     #' jstring <- jsonString$new("999")
     #' jstring$type()
@@ -366,7 +384,9 @@ jsonString <- R6Class(
     #' @return Nothing.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' jsonfile <- tempfile(fileext = ".json")
     #' jstring$writeFile(jsonfile)
     #' cat(readLines(jsonfile), sep = "\n")
@@ -381,7 +401,9 @@ jsonString <- R6Class(
     #' @return A \code{jsonString} object.
     #' 
     #' @examples 
-    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' jstring <- jsonString$new(
+    #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
+    #' )
     #' copy <- jstring$copy()
     #' copy$erase("b")
     #' jstring
