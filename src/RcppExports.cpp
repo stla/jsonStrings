@@ -12,12 +12,12 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // toJSONXptr
-jsonXptr toJSONXptr(std::string string);
+jsonXptr toJSONXptr(const std::string& string);
 RcppExport SEXP _jsonStrings_toJSONXptr(SEXP stringSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type string(stringSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type string(stringSEXP);
     rcpp_result_gen = Rcpp::wrap(toJSONXptr(string));
     return rcpp_result_gen;
 END_RCPP

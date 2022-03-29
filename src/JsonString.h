@@ -4,7 +4,7 @@ class JsonString {
  public:
   json jsonString;
   jsonXptr ptr;
-  JsonString(std::string string_)
+  explicit JsonString(const std::string& string_)
       : jsonString(toJSONstring(string_)), ptr(jsonXptr(&jsonString, false)) {}
   JsonString(Rcpp::XPtr<json> ptr_, int xxx)
       : jsonString(*(ptr_.get())), ptr(jsonXptr(&jsonString, false)) {}

@@ -8,7 +8,7 @@ json toJSONstring(std::string string) {
 }
 
 // [[Rcpp::export]]
-jsonXptr toJSONXptr(std::string string){
+jsonXptr toJSONXptr(const std::string& string){
   json jstring = toJSONstring(string);
   return jsonXptr(new json(jstring), false);
 }
