@@ -191,6 +191,18 @@ jstring <- jsonString$new(
 jstring$flatten()
 
 ## ------------------------------------------------
+## Method `jsonString$unflatten`
+## ------------------------------------------------
+
+folder <- system.file(package = "jsonStrings")
+files <- list.files(folder, recursive = TRUE)
+sizes <- file.size(file.path(folder, files))
+files <- shQuote(paste0("/", files))
+string <- sprintf("{\%s}", paste0(files, ":", sizes, collapse = ","))
+jstring <- jsonString$new(string)
+jstring$unflatten()
+
+## ------------------------------------------------
 ## Method `jsonString$writeFile`
 ## ------------------------------------------------
 
@@ -242,6 +254,7 @@ jstring
 \item \href{#method-is}{\code{jsonString$is()}}
 \item \href{#method-type}{\code{jsonString$type()}}
 \item \href{#method-flatten}{\code{jsonString$flatten()}}
+\item \href{#method-unflatten}{\code{jsonString$unflatten()}}
 \item \href{#method-writeFile}{\code{jsonString$writeFile()}}
 \item \href{#method-copy}{\code{jsonString$copy()}}
 }
@@ -771,6 +784,33 @@ A \code{jsonString} object.
   "{\"a\":[1,2,3],\"b\":{\"x\":\"hello\",\"y\":\"hi\"}}"
 )
 jstring$flatten()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-unflatten"></a>}}
+\if{latex}{\out{\hypertarget{method-unflatten}{}}}
+\subsection{Method \code{unflatten()}}{
+Unflatten the reference JSON string (if it is flattened).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$unflatten()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{jsonString} object.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{folder <- system.file(package = "jsonStrings")
+files <- list.files(folder, recursive = TRUE)
+sizes <- file.size(file.path(folder, files))
+files <- shQuote(paste0("/", files))
+string <- sprintf("{\%s}", paste0(files, ":", sizes, collapse = ","))
+jstring <- jsonString$new(string)
+jstring$unflatten()
 }
 \if{html}{\out{</div>}}
 

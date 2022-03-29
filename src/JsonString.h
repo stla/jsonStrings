@@ -208,4 +208,10 @@ class JsonString {
     json jflat = jsonString.flatten();
     return jsonXptr(new json(jflat), false);
   }
+  
+  jsonXptr unflatten(){
+    json junflat = jsonString.unflatten();
+    return jsonXptr(new json(junflat), false);
+  }
+  
 };

@@ -390,6 +390,23 @@ jsonString <- R6Class(
       ptr <- private[[".jsonString"]]$flatten()
       Xptrinit(ptr)
     },
+
+    #' @description Unflatten the reference JSON string (if it is flattened).
+    #'
+    #' @return A \code{jsonString} object.
+    #' 
+    #' @examples 
+    #' folder <- system.file(package = "jsonStrings")
+    #' files <- list.files(folder, recursive = TRUE)
+    #' sizes <- file.size(file.path(folder, files))
+    #' files <- shQuote(paste0("/", files))
+    #' string <- sprintf("{%s}", paste0(files, ":", sizes, collapse = ","))
+    #' jstring <- jsonString$new(string)
+    #' jstring$unflatten()
+    unflatten = function(){
+      ptr <- private[[".jsonString"]]$unflatten()
+      Xptrinit(ptr)
+    },
     
     #' @description Write the reference JSON string to a file.
     #' 
