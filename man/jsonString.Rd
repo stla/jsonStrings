@@ -172,6 +172,18 @@ jsonfile <- tempfile(fileext = ".json")
 jstring$writeFile(jsonfile)
 cat(readLines(jsonfile), sep = "\n")
 jsonString$new(jsonfile)
+
+## ------------------------------------------------
+## Method `jsonString$copy`
+## ------------------------------------------------
+
+jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+copy <- jstring$copy()
+copy$erase("b")
+jstring
+naive_copy <- jstring
+naive_copy$erase("b")
+jstring
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -199,6 +211,7 @@ jsonString$new(jsonfile)
 \item \href{#method-is}{\code{jsonString$is()}}
 \item \href{#method-type}{\code{jsonString$type()}}
 \item \href{#method-writeFile}{\code{jsonString$writeFile()}}
+\item \href{#method-copy}{\code{jsonString$copy()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -341,7 +354,7 @@ jstring$at(2, "x")
 \if{html}{\out{<a id="method-hasKey"></a>}}
 \if{latex}{\out{\hypertarget{method-hasKey}{}}}
 \subsection{Method \code{hasKey()}}{
-Checks whether a key exists in a JSON string.
+Checks whether a key exists in the reference JSON string.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{jsonString$hasKey(key)}\if{html}{\out{</div>}}
 }
@@ -716,6 +729,33 @@ jsonfile <- tempfile(fileext = ".json")
 jstring$writeFile(jsonfile)
 cat(readLines(jsonfile), sep = "\n")
 jsonString$new(jsonfile)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-copy"></a>}}
+\if{latex}{\out{\hypertarget{method-copy}{}}}
+\subsection{Method \code{copy()}}{
+Copy the reference JSON string.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{jsonString$copy()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{jsonString} object.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+copy <- jstring$copy()
+copy$erase("b")
+jstring
+naive_copy <- jstring
+naive_copy$erase("b")
+jstring
 }
 \if{html}{\out{</div>}}
 

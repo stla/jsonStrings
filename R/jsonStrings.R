@@ -374,6 +374,22 @@ jsonString <- R6Class(
     writeFile = function(filename){
       stopifnot(isString(filename))
       private[[".jsonString"]]$writeFile(filename)
+    },
+    
+    #' @description Copy the reference JSON string.
+    #' 
+    #' @return A \code{jsonString} object.
+    #' 
+    #' @examples 
+    #' jstring <- jsonString$new("{\"a\":[1,2,3],\"b\":\"hello\"}")
+    #' copy <- jstring$copy()
+    #' copy$erase("b")
+    #' jstring
+    #' naive_copy <- jstring
+    #' naive_copy$erase("b")
+    #' jstring
+    copy = function(){
+      Xptrinit(Xptr(self))
     }
     
   )
