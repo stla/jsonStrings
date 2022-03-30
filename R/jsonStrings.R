@@ -399,7 +399,7 @@ jsonString <- R6Class(
     #' folder <- system.file(package = "jsonStrings")
     #' files <- list.files(folder, recursive = TRUE)
     #' sizes <- file.size(file.path(folder, files))
-    #' files <- shQuote(paste0("/", files))
+    #' files <- sprintf('"%s"', paste0("/", files))
     #' string <- sprintf("{%s}", paste0(files, ":", sizes, collapse = ","))
     #' jstring <- jsonString$new(string)
     #' jstring$unflatten()
