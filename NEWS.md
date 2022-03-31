@@ -1,4 +1,4 @@
-# jsonStrings 1.0.0.9000
+# jsonStrings 2.0.0
 
 - Major change: introduced the R6 class `jsonString`.
 
