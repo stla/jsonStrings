@@ -85,5 +85,23 @@ jspatch <- "[
 jstring$patch(jspatch)
 ```
 
+## Chaining
 
+```{r}
+jstring <- jsonString$new("
+  {
+    \"foo\": \"hello\",
+    \"bar\": {\"x\": 1, \"y\": 2},
+    \"baz\": [9, 99, null],
+    \"qux\": [null, [0, 1], {\"a\": 1000}]
+  }
+")
+jstring$erase("baz")$addProperty("new", "[4,5]")$update(
+  "{
+    \"foo\": \"goodbye\",
+    \"quux\": 10000
+  }"
+)
+jstring
+```
 

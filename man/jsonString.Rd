@@ -476,7 +476,8 @@ string}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Nothing, this updates the reference JSON string.
+This updates the reference JSON string and this returns it 
+ invisibly.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -513,7 +514,7 @@ or an integer, the index of the array element to be erased}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Nothing, this updates the reference JSON string.
+This invisibly returns the updated reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -574,7 +575,7 @@ Update the reference JSON string (if it
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Nothing, this updates the reference JSON string.
+This invisibly returns the updated reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -609,7 +610,7 @@ string representing a JSON object}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Nothing, this updates the reference JSON string.
+This invisibly returns the updated reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -649,7 +650,7 @@ See \href{http://jsonpatch.com/}{jsonpatch.com}.
 }
 
 \subsection{Returns}{
-A \code{jsonString} object.
+A new \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -686,7 +687,7 @@ string representing a JSON object}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Nothing, this updates the reference JSON string.
+This invisibly returns the updated reference JSON string.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -776,7 +777,7 @@ Flatten the reference JSON string.
 }
 
 \subsection{Returns}{
-A \code{jsonString} object.
+A new \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -800,7 +801,7 @@ Unflatten the reference JSON string (if it is flattened).
 }
 
 \subsection{Returns}{
-A \code{jsonString} object.
+A new \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -861,7 +862,7 @@ Copy the reference JSON string.
 }
 
 \subsection{Returns}{
-A \code{jsonString} object.
+A new \code{jsonString} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

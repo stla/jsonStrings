@@ -2,6 +2,7 @@ jsonStrings
 ================
 
 <!-- badges: start -->
+
 [![R-CMD-check](https://github.com/stla/jsonStrings/workflows/R-CMD-check/badge.svg)](https://github.com/stla/jsonStrings/actions)
 <!-- badges: end -->
 
@@ -158,6 +159,48 @@ jstring$patch(jspatch)
 ##             1
 ##         ],
 ##         9999
+##     ]
+## }
+```
+
+## Chaining
+
+``` r
+jstring <- jsonString$new("
+  {
+    \"foo\": \"hello\",
+    \"bar\": {\"x\": 1, \"y\": 2},
+    \"baz\": [9, 99, null],
+    \"qux\": [null, [0, 1], {\"a\": 1000}]
+  }
+")
+jstring$erase("baz")$addProperty("new", "[4,5]")$update(
+  "{
+    \"foo\": \"goodbye\",
+    \"quux\": 10000
+  }"
+)
+jstring
+## {
+##     "bar": {
+##         "x": 1,
+##         "y": 2
+##     },
+##     "foo": "goodbye",
+##     "new": [
+##         4,
+##         5
+##     ],
+##     "quux": 10000,
+##     "qux": [
+##         null,
+##         [
+##             0,
+##             1
+##         ],
+##         {
+##             "a": 1000
+##         }
 ##     ]
 ## }
 ```

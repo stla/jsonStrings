@@ -76,6 +76,7 @@ jsonString <- R6Class(
       }else{
         private[[".jsonString"]] <- JsonString$new(string)
       }
+      invisible(self)
     },
     
     #' @description Print a \code{jsonString} object.
@@ -156,7 +157,8 @@ jsonString <- R6Class(
     #' @param value a JSON string, either a \code{jsonString} object or a 
     #'   string 
     #'
-    #' @return Nothing, this updates the reference JSON string.
+    #' @return This updates the reference JSON string and this returns it 
+    #'  invisibly.
     #' 
     #' @examples 
     #' jstring <- jsonString$new(
@@ -177,6 +179,7 @@ jsonString <- R6Class(
         stop("Invalid `value` argument.")
       }
       private[[".jsonString"]]$addProperty(key, ptr)
+      invisible(self)
     },
     
     #' @description Erase an object property or an array element from the 
@@ -185,7 +188,7 @@ jsonString <- R6Class(
     #' @param at either a character string, the key of the property to be erased, 
     #'   or an integer, the index of the array element to be erased
     #'
-    #' @return Nothing, this updates the reference JSON string.
+    #' @return This invisibly returns the updated reference JSON string.
     #'
     #' @examples 
     #' jstring <- jsonString$new(
@@ -199,8 +202,10 @@ jsonString <- R6Class(
     erase = function(at){
       if(isString(at)){
         private[[".jsonString"]]$eraseProperty(at)
+        invisible(self)
       }else if(isPositiveInteger(at)){
         private[[".jsonString"]]$eraseElement(as.integer(at))
+        invisible(self)
       }else{
         stop("Invalid `at` argument.")
       }
@@ -225,7 +230,7 @@ jsonString <- R6Class(
     #' @param jstring a JSON string representing an object, either a 
     #'   \code{jsonString} object or a string 
     #'
-    #' @return Nothing, this updates the reference JSON string.
+    #' @return This invisibly returns the updated reference JSON string.
     #' 
     #' @examples 
     #' jstring <- jsonString$new(
@@ -243,6 +248,7 @@ jsonString <- R6Class(
         stop("Invalid `jstring` argument.")
       }
       private[[".jsonString"]]$update(ptr)
+      invisible(self)
     },
 
     #' @description Merge the reference JSON string (if it 
@@ -251,7 +257,7 @@ jsonString <- R6Class(
     #' @param jstring a JSON string, either a \code{jsonString} object or a 
     #'   string representing a JSON object
     #'
-    #' @return Nothing, this updates the reference JSON string.
+    #' @return This invisibly returns the updated reference JSON string.
     #' 
     #' @examples 
     #' jstring <- jsonString$new(
@@ -269,6 +275,7 @@ jsonString <- R6Class(
         stop("Invalid `jstring` argument.")
       }
       private[[".jsonString"]]$merge(ptr)
+      invisible(self)
     },
     
     
@@ -279,7 +286,7 @@ jsonString <- R6Class(
     #'   the link in details); it could be either a \code{jsonString} object or 
     #'   a string 
     #'
-    #' @return A \code{jsonString} object.
+    #' @return A new \code{jsonString} object.
     #' 
     #' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
     #'
@@ -310,7 +317,7 @@ jsonString <- R6Class(
     #' @param jstring a JSON string, either a \code{jsonString} object or a 
     #'   string representing a JSON object
     #'
-    #' @return Nothing, this updates the reference JSON string.
+    #' @return This invisibly returns the updated reference JSON string.
     #' 
     #' @examples 
     #' jstring <- jsonString$new("[1, 2, 3, 4, 5]")
@@ -328,6 +335,7 @@ jsonString <- R6Class(
         stop("Invalid `jstring` argument.")
       }
       private[[".jsonString"]]$push(ptr)
+      invisible(self)
     },
     
     #' @description Check the type of the reference JSON string.
@@ -379,7 +387,7 @@ jsonString <- R6Class(
     
     #' @description Flatten the reference JSON string.
     #'
-    #' @return A \code{jsonString} object.
+    #' @return A new \code{jsonString} object.
     #' 
     #' @examples 
     #' jstring <- jsonString$new(
@@ -393,7 +401,7 @@ jsonString <- R6Class(
 
     #' @description Unflatten the reference JSON string (if it is flattened).
     #'
-    #' @return A \code{jsonString} object.
+    #' @return A new \code{jsonString} object.
     #' 
     #' @examples 
     #' folder <- system.file(package = "jsonStrings")
@@ -429,7 +437,7 @@ jsonString <- R6Class(
     
     #' @description Copy the reference JSON string.
     #' 
-    #' @return A \code{jsonString} object.
+    #' @return A new \code{jsonString} object.
     #' 
     #' @examples 
     #' jstring <- jsonString$new(
