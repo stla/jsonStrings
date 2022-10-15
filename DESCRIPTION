@@ -1,20 +1,24 @@
-Package: jsonStrings
 Type: Package
+Package: jsonStrings
 Title: Manipulation of JSON Strings
-Version: 2.0.0
+Version: 2.1.0
 Authors@R: c(
-    person("Stéphane", "Laurent", role = c("aut", "cre"), 
-           email = "laurent_step@outlook.fr"),
+    person("Stéphane", "Laurent", , "laurent_step@outlook.fr", role = c("aut", "cre")),
     person("Niels", "Lohmann", role = "cph",
-          comment = "'nlohmann/json' C++ library")
+           comment = "'nlohmann/json' C++ library")
   )
 Maintainer: Stéphane Laurent <laurent_step@outlook.fr>
-Description: Fast manipulation of JSON strings. Allows to extract or delete an element in a JSON string, merge two JSON strings, and more.
+Description: Fast manipulation of JSON strings. Allows to extract or
+    delete an element in a JSON string, merge two JSON strings, and more.
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.0), methods, R6
-LinkingTo: Rcpp
-RoxygenNote: 7.1.2
-Encoding: UTF-8
-SystemRequirements: C++11
 URL: https://github.com/stla/jsonStrings
 BugReports: https://github.com/stla/jsonStrings/issues
+Imports: 
+    methods,
+    R6,
+    Rcpp (>= 1.0.0)
+LinkingTo: 
+    Rcpp
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+SystemRequirements: C++17

@@ -1,3 +1,8 @@
+# jsonStrings 2.1.0
+
+Enabled C++17 because of warnings spotted by CRAN.
+
+
 # jsonStrings 2.0.0
 
 - Major change: introduced the R6 class `jsonString`.
