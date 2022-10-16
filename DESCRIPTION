@@ -20,5 +20,5 @@ Imports:
 LinkingTo: 
     Rcpp
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 SystemRequirements: C++17

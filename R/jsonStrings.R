@@ -288,7 +288,7 @@ jsonString <- R6Class(
     #'
     #' @return A new \code{jsonString} object.
     #' 
-    #' @details See \href{http://jsonpatch.com/}{jsonpatch.com}.
+    #' @details See \href{https://jsonpatch.com/}{jsonpatch.com}.
     #'
     #' @examples 
     #' jstring <- jsonString$new(

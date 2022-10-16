@@ -238,30 +238,30 @@ jstring
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{jsonString$new()}}
-\item \href{#method-print}{\code{jsonString$print()}}
-\item \href{#method-asString}{\code{jsonString$asString()}}
-\item \href{#method-at}{\code{jsonString$at()}}
-\item \href{#method-hasKey}{\code{jsonString$hasKey()}}
-\item \href{#method-keys}{\code{jsonString$keys()}}
-\item \href{#method-addProperty}{\code{jsonString$addProperty()}}
-\item \href{#method-erase}{\code{jsonString$erase()}}
-\item \href{#method-size}{\code{jsonString$size()}}
-\item \href{#method-update}{\code{jsonString$update()}}
-\item \href{#method-merge}{\code{jsonString$merge()}}
-\item \href{#method-patch}{\code{jsonString$patch()}}
-\item \href{#method-push}{\code{jsonString$push()}}
-\item \href{#method-is}{\code{jsonString$is()}}
-\item \href{#method-type}{\code{jsonString$type()}}
-\item \href{#method-flatten}{\code{jsonString$flatten()}}
-\item \href{#method-unflatten}{\code{jsonString$unflatten()}}
-\item \href{#method-writeFile}{\code{jsonString$writeFile()}}
-\item \href{#method-copy}{\code{jsonString$copy()}}
+\item \href{#method-jsonString-new}{\code{jsonString$new()}}
+\item \href{#method-jsonString-print}{\code{jsonString$print()}}
+\item \href{#method-jsonString-asString}{\code{jsonString$asString()}}
+\item \href{#method-jsonString-at}{\code{jsonString$at()}}
+\item \href{#method-jsonString-hasKey}{\code{jsonString$hasKey()}}
+\item \href{#method-jsonString-keys}{\code{jsonString$keys()}}
+\item \href{#method-jsonString-addProperty}{\code{jsonString$addProperty()}}
+\item \href{#method-jsonString-erase}{\code{jsonString$erase()}}
+\item \href{#method-jsonString-size}{\code{jsonString$size()}}
+\item \href{#method-jsonString-update}{\code{jsonString$update()}}
+\item \href{#method-jsonString-merge}{\code{jsonString$merge()}}
+\item \href{#method-jsonString-patch}{\code{jsonString$patch()}}
+\item \href{#method-jsonString-push}{\code{jsonString$push()}}
+\item \href{#method-jsonString-is}{\code{jsonString$is()}}
+\item \href{#method-jsonString-type}{\code{jsonString$type()}}
+\item \href{#method-jsonString-flatten}{\code{jsonString$flatten()}}
+\item \href{#method-jsonString-unflatten}{\code{jsonString$unflatten()}}
+\item \href{#method-jsonString-writeFile}{\code{jsonString$writeFile()}}
+\item \href{#method-jsonString-copy}{\code{jsonString$copy()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-jsonString-new"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a new \code{jsonString} object.
 \subsection{Usage}{
@@ -301,8 +301,8 @@ jsonString$new(jstring)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-jsonString-print"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-print}{}}}
 \subsection{Method \code{print()}}{
 Print a \code{jsonString} object.
 \subsection{Usage}{
@@ -331,8 +331,8 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-asString"></a>}}
-\if{latex}{\out{\hypertarget{method-asString}{}}}
+\if{html}{\out{<a id="method-jsonString-asString"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-asString}{}}}
 \subsection{Method \code{asString()}}{
 Converts a \code{jsonString} to a character string.
 \subsection{Usage}{
@@ -363,8 +363,8 @@ cat(jstring$asString(pretty = TRUE))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-at"></a>}}
-\if{latex}{\out{\hypertarget{method-at}{}}}
+\if{html}{\out{<a id="method-jsonString-at"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-at}{}}}
 \subsection{Method \code{at()}}{
 Extract an element in a JSON string by giving a path of 
   keys or indices.
@@ -396,8 +396,8 @@ jstring$at(2, "x")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasKey"></a>}}
-\if{latex}{\out{\hypertarget{method-hasKey}{}}}
+\if{html}{\out{<a id="method-jsonString-hasKey"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-hasKey}{}}}
 \subsection{Method \code{hasKey()}}{
 Checks whether a key exists in the reference JSON string.
 \subsection{Usage}{
@@ -431,8 +431,8 @@ jstring$hasKey("x")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-keys"></a>}}
-\if{latex}{\out{\hypertarget{method-keys}{}}}
+\if{html}{\out{<a id="method-jsonString-keys"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-keys}{}}}
 \subsection{Method \code{keys()}}{
 Get the keys of the reference JSON string (if it represents 
   an object).
@@ -456,8 +456,8 @@ jstring$keys()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addProperty"></a>}}
-\if{latex}{\out{\hypertarget{method-addProperty}{}}}
+\if{html}{\out{<a id="method-jsonString-addProperty"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-addProperty}{}}}
 \subsection{Method \code{addProperty()}}{
 Add a new property to the reference JSON string (if it 
   represents an object).
@@ -496,8 +496,8 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-erase"></a>}}
-\if{latex}{\out{\hypertarget{method-erase}{}}}
+\if{html}{\out{<a id="method-jsonString-erase"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-erase}{}}}
 \subsection{Method \code{erase()}}{
 Erase an object property or an array element from the 
   reference JSON string.
@@ -533,8 +533,8 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-size"></a>}}
-\if{latex}{\out{\hypertarget{method-size}{}}}
+\if{html}{\out{<a id="method-jsonString-size"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-size}{}}}
 \subsection{Method \code{size()}}{
 Number of elements in the reference JSON string.
 \subsection{Usage}{
@@ -557,8 +557,8 @@ jstring$size()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-update"></a>}}
-\if{latex}{\out{\hypertarget{method-update}{}}}
+\if{html}{\out{<a id="method-jsonString-update"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-update}{}}}
 \subsection{Method \code{update()}}{
 Update the reference JSON string (if it 
   represents an object).
@@ -592,8 +592,8 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-merge"></a>}}
-\if{latex}{\out{\hypertarget{method-merge}{}}}
+\if{html}{\out{<a id="method-jsonString-merge"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-merge}{}}}
 \subsection{Method \code{merge()}}{
 Merge the reference JSON string (if it 
   represents an object).
@@ -627,8 +627,8 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-patch"></a>}}
-\if{latex}{\out{\hypertarget{method-patch}{}}}
+\if{html}{\out{<a id="method-jsonString-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-patch}{}}}
 \subsection{Method \code{patch()}}{
 Apply a JSON patch to the reference JSON string (if it 
   represents an array or an object).
@@ -646,7 +646,7 @@ a string}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-See \href{http://jsonpatch.com/}{jsonpatch.com}.
+See \href{https://jsonpatch.com/}{jsonpatch.com}.
 }
 
 \subsection{Returns}{
@@ -669,8 +669,8 @@ jstring$patch(jspatch)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-push"></a>}}
-\if{latex}{\out{\hypertarget{method-push}{}}}
+\if{html}{\out{<a id="method-jsonString-push"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-push}{}}}
 \subsection{Method \code{push()}}{
 Append an element to the reference JSON string (if it 
   represents an array).
@@ -704,8 +704,8 @@ jstring
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-is"></a>}}
-\if{latex}{\out{\hypertarget{method-is}{}}}
+\if{html}{\out{<a id="method-jsonString-is"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-is}{}}}
 \subsection{Method \code{is()}}{
 Check the type of the reference JSON string.
 \subsection{Usage}{
@@ -742,8 +742,8 @@ jstring$is("float")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-type"></a>}}
-\if{latex}{\out{\hypertarget{method-type}{}}}
+\if{html}{\out{<a id="method-jsonString-type"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-type}{}}}
 \subsection{Method \code{type()}}{
 Get the type of the reference JSON string.
 \subsection{Usage}{
@@ -768,8 +768,8 @@ jstring$type()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-flatten"></a>}}
-\if{latex}{\out{\hypertarget{method-flatten}{}}}
+\if{html}{\out{<a id="method-jsonString-flatten"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-flatten}{}}}
 \subsection{Method \code{flatten()}}{
 Flatten the reference JSON string.
 \subsection{Usage}{
@@ -792,8 +792,8 @@ jstring$flatten()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-unflatten"></a>}}
-\if{latex}{\out{\hypertarget{method-unflatten}{}}}
+\if{html}{\out{<a id="method-jsonString-unflatten"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-unflatten}{}}}
 \subsection{Method \code{unflatten()}}{
 Unflatten the reference JSON string (if it is flattened).
 \subsection{Usage}{
@@ -819,8 +819,8 @@ jstring$unflatten()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-writeFile"></a>}}
-\if{latex}{\out{\hypertarget{method-writeFile}{}}}
+\if{html}{\out{<a id="method-jsonString-writeFile"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-writeFile}{}}}
 \subsection{Method \code{writeFile()}}{
 Write the reference JSON string to a file.
 \subsection{Usage}{
@@ -853,8 +853,8 @@ jsonString$new(jsonfile)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-copy"></a>}}
-\if{latex}{\out{\hypertarget{method-copy}{}}}
+\if{html}{\out{<a id="method-jsonString-copy"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonString-copy}{}}}
 \subsection{Method \code{copy()}}{
 Copy the reference JSON string.
 \subsection{Usage}{
