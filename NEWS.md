@@ -1,3 +1,8 @@
+# jsonStrings 2.1.1
+
+Better code, no change for the user.
+
+
 # jsonStrings 2.1.0
 
 Enabled C++17 because of warnings spotted by CRAN.

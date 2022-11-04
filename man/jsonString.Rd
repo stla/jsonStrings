@@ -375,7 +375,9 @@ Extract an element in a JSON string by giving a path of
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{the elements forming the path, integers or strings}
+\item{\code{...}}{the elements forming the path, integers or strings; an 
+integer represents an index in an array (starting at 0), a string
+represents a key in an object}
 }
 \if{html}{\out{</div>}}
 }

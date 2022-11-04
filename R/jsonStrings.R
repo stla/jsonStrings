@@ -9,14 +9,6 @@ Xptr <- function(jstring){
   jstring[[".__enclos_env__"]][["private"]][[".jsonString"]][["ptr"]]
 }
 
-Xptrinit <- function(ptr){
-  json <- jsonString$new("{}")
-  json[[".__enclos_env__"]][["private"]][[".jsonString"]] <- 
-    new("JsonString", ptr, 0L)
-  json
-}
-
-
 #' @title R6 class to represent a JSON string
 #' @description R6 class to represent a JSON string.
 #'
@@ -68,12 +60,16 @@ jsonString <- R6Class(
     #' @examples
     #' jstring <- "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
     #' jsonString$new(jstring)
-    initialize = function(string){
+    initialize = function(string) {
+      if(inherits(string, "externalptr")) {
+        private[[".jsonString"]] <- JsonString$new(string, 0L)
+        return(invisible(self))
+      }
       stopifnot(isString(string))
-      if(file.exists(string)){
-        ptr <- read_json(string)
+      if(file.exists(string)) {
+        ptr <- read_json(path.expand(string))
         private[[".jsonString"]] <- JsonString$new(ptr, 0L)
-      }else{
+      } else {
         private[[".jsonString"]] <- JsonString$new(string)
       }
       invisible(self)
@@ -88,7 +84,7 @@ jsonString <- R6Class(
     #' jstring
     #' jstring$prettyPrint <- FALSE
     #' jstring
-    print = function(...){
+    print = function(...) {
       private[[".jsonString"]]$print(pretty = private[[".prettyPrint"]])
     },
     
@@ -101,14 +97,16 @@ jsonString <- R6Class(
     #' )
     #' cat(jstring$asString())
     #' cat(jstring$asString(pretty = TRUE))
-    asString = function(pretty = FALSE){
+    asString = function(pretty = FALSE) {
       stopifnot(isBoolean(pretty))
       private[[".jsonString"]]$asString(pretty)
     },
 
     #' @description Extract an element in a JSON string by giving a path of 
     #'   keys or indices.
-    #' @param ... the elements forming the path, integers or strings
+    #' @param ... the elements forming the path, integers or strings; an 
+    #'   integer represents an index in an array (starting at 0), a string
+    #'   represents a key in an object
     #' @return A \code{jsonString} object.
     #' @examples 
     #' jstring <- jsonString$new(
@@ -116,9 +114,9 @@ jsonString <- R6Class(
     #' )
     #' jstring$at(1)
     #' jstring$at(2, "x")
-    at = function(...){
+    at = function(...) {
       ptr <- private[[".jsonString"]]$at(list(...))
-      Xptrinit(ptr)
+      jsonString$new(ptr)
     },
     
     #' @description Checks whether a key exists in the reference JSON string.
@@ -133,7 +131,7 @@ jsonString <- R6Class(
     #'   "{\"x\": [2,3,4], \"y\": 42}"
     #' )
     #' jstring$hasKey("x")
-    hasKey = function(key){
+    hasKey = function(key) {
       stopifnot(isString(key))
       private[[".jsonString"]]$hasKey(key)
     },
@@ -146,7 +144,7 @@ jsonString <- R6Class(
     #'   "{\"x\": [2,3,4], \"y\": 42}"
     #' )
     #' jstring$keys()
-    keys = function(){
+    keys = function() {
       private[[".jsonString"]]$keys()
     },
     
@@ -169,13 +167,13 @@ jsonString <- R6Class(
     #' jstring
     #' jstring$addProperty("d", "null")
     #' jstring
-    addProperty = function(key, value){
+    addProperty = function(key, value) {
       stopifnot(isString(key))
-      if(isJsonString(value)){
+      if(isJsonString(value)) {
         ptr <- Xptr(value)
-      }else if(isString(value)){
+      } else if(isString(value)) {
         ptr <- toJSONXptr(value)
-      }else{
+      } else {
         stop("Invalid `value` argument.")
       }
       private[[".jsonString"]]$addProperty(key, ptr)
@@ -199,14 +197,14 @@ jsonString <- R6Class(
     #' jstring <- jsonString$new("[1, 2, 3, 4, 5]")
     #' jstring$erase(2)
     #' jstring
-    erase = function(at){
-      if(isString(at)){
+    erase = function(at) {
+      if(isString(at)) {
         private[[".jsonString"]]$eraseProperty(at)
         invisible(self)
-      }else if(isPositiveInteger(at)){
+      }else if(isPositiveInteger(at)) {
         private[[".jsonString"]]$eraseElement(as.integer(at))
         invisible(self)
-      }else{
+      } else {
         stop("Invalid `at` argument.")
       }
     },
@@ -220,7 +218,7 @@ jsonString <- R6Class(
     #'   "{\"a\":[1,2,3],\"b\":\"hello\"}"
     #' )
     #' jstring$size()
-    size = function(){
+    size = function() {
       private[[".jsonString"]]$size()
     },
     
@@ -239,12 +237,12 @@ jsonString <- R6Class(
     #' jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
     #' jstring$update(jstring2)
     #' jstring
-    update = function(jstring){
-      if(isJsonString(jstring)){
+    update = function(jstring) {
+      if(isJsonString(jstring)) {
         ptr <- Xptr(jstring)
-      }else if(isString(jstring)){
+      } else if(isString(jstring)) {
         ptr <- toJSONXptr(jstring)
-      }else{
+      } else {
         stop("Invalid `jstring` argument.")
       }
       private[[".jsonString"]]$update(ptr)
@@ -266,12 +264,12 @@ jsonString <- R6Class(
     #' jstring2 <- "{\"a\":[4,5,6],\"c\":\"goodbye\"}"
     #' jstring$merge(jstring2)
     #' jstring
-    merge = function(jstring){
-      if(isJsonString(jstring)){
+    merge = function(jstring) {
+      if(isJsonString(jstring)) {
         ptr <- Xptr(jstring)
-      }else if(isString(jstring)){
+      } else if(isString(jstring)) {
         ptr <- toJSONXptr(jstring)
-      }else{
+      } else {
         stop("Invalid `jstring` argument.")
       }
       private[[".jsonString"]]$merge(ptr)
@@ -299,16 +297,16 @@ jsonString <- R6Class(
     #'   {\"op\": \"replace\", \"path\": \"/b\", \"value\": null}
     #' ]"
     #' jstring$patch(jspatch)
-    patch = function(jspatch){
-      if(isJsonString(jspatch)){
+    patch = function(jspatch) {
+      if(isJsonString(jspatch)) {
         ptrpatch <- Xptr(jspatch)
-      }else if(isString(jspatch)){
+      } else if(isString(jspatch)) {
         ptrpatch <- toJSONXptr(jspatch)
-      }else{
+      } else {
         stop("Invalid `jspatch` argument.")
       }
       ptr <- private[[".jsonString"]]$patch(ptrpatch)
-      Xptrinit(ptr)
+      jsonString$new(ptr)
     },
     
     #' @description Append an element to the reference JSON string (if it 
@@ -326,12 +324,12 @@ jsonString <- R6Class(
     #'  )
     #' jstring$push(jstring2)
     #' jstring
-    push = function(jstring){
-      if(isJsonString(jstring)){
+    push = function(jstring) {
+      if(isJsonString(jstring)) {
         ptr <- Xptr(jstring)
-      }else if(isString(jstring)){
+      } else if(isString(jstring)) {
         ptr <- toJSONXptr(jstring)
-      }else{
+      } else {
         stop("Invalid `jstring` argument.")
       }
       private[[".jsonString"]]$push(ptr)
@@ -356,7 +354,7 @@ jsonString <- R6Class(
     #' jstring$is("integer")
     #' jstring$is("number")
     #' jstring$is("float")
-    is = function(type){
+    is = function(type) {
       types <-
         c("array",
           "object",
@@ -381,7 +379,7 @@ jsonString <- R6Class(
     #' jstring$type()
     #' jstring <- jsonString$new("999")
     #' jstring$type()
-    type = function(){
+    type = function() {
       private[[".jsonString"]]$type() 
     },
     
@@ -394,9 +392,9 @@ jsonString <- R6Class(
     #'   "{\"a\":[1,2,3],\"b\":{\"x\":\"hello\",\"y\":\"hi\"}}"
     #' )
     #' jstring$flatten()
-    flatten = function(){
+    flatten = function() {
       ptr <- private[[".jsonString"]]$flatten()
-      Xptrinit(ptr)
+      jsonString$new(ptr)
     },
 
     #' @description Unflatten the reference JSON string (if it is flattened).
@@ -411,9 +409,9 @@ jsonString <- R6Class(
     #' string <- sprintf("{%s}", paste0(files, ":", sizes, collapse = ","))
     #' jstring <- jsonString$new(string)
     #' jstring$unflatten()
-    unflatten = function(){
+    unflatten = function() {
       ptr <- private[[".jsonString"]]$unflatten()
-      Xptrinit(ptr)
+      jsonString$new(ptr)
     },
     
     #' @description Write the reference JSON string to a file.
@@ -430,7 +428,7 @@ jsonString <- R6Class(
     #' jstring$writeFile(jsonfile)
     #' cat(readLines(jsonfile), sep = "\n")
     #' jsonString$new(jsonfile)
-    writeFile = function(filename){
+    writeFile = function(filename) {
       stopifnot(isString(filename))
       private[[".jsonString"]]$writeFile(filename)
     },
@@ -449,8 +447,8 @@ jsonString <- R6Class(
     #' naive_copy <- jstring
     #' naive_copy$erase("b")
     #' jstring
-    copy = function(){
-      Xptrinit(Xptr(self))
+    copy = function() {
+      jsonString$new(Xptr(self))
     }
     
   )
