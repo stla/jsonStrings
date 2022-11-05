@@ -1,6 +1,5 @@
 #' @useDynLib jsonStrings, .registration=TRUE
 #' @importFrom Rcpp evalCpp setRcppClass 
-#' @importFrom methods new
 NULL
 
 JsonString <- setRcppClass("JsonString")
@@ -61,6 +60,7 @@ jsonString <- R6Class(
     #' jstring <- "[1, [\"a\", 99], {\"x\": [2,3,4], \"y\": 42}]"
     #' jsonString$new(jstring)
     initialize = function(string) {
+      # initialization from a pointer is hidden to the user
       if(inherits(string, "externalptr")) {
         private[[".jsonString"]] <- JsonString$new(string, 0L)
         return(invisible(self))
