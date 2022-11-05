@@ -1,5 +1,6 @@
 #' @useDynLib jsonStrings, .registration=TRUE
 #' @importFrom Rcpp evalCpp setRcppClass 
+#' @importFrom methods new
 NULL
 
 JsonString <- setRcppClass("JsonString")
